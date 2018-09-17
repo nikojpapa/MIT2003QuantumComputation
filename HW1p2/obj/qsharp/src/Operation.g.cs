@@ -8,14 +8,14 @@ using Microsoft.Quantum.MetaData.Attributes;
 [assembly: UdtDeclaration("HW1p2", "StateAmps", "(Microsoft.Quantum.Extensions.Math.Complex, Microsoft.Quantum.Extensions.Math.Complex)", "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 605L, 20L, 5L)]
 [assembly: OperationDeclaration("HW1p2", "AssertJ (pauliJ : HW1p2.PauliJ) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 330L, 10L, 43L)]
 [assembly: OperationDeclaration("HW1p2", "AssertStateAmps (stateAmps : HW1p2.StateAmps) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 702L, 21L, 57L)]
-[assembly: OperationDeclaration("HW1p2", "NextDouble () : Double", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1979L, 56L, 36L)]
-[assembly: OperationDeclaration("HW1p2", "SquareComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 2134L, 62L, 57L)]
-[assembly: OperationDeclaration("HW1p2", "PerformPauliJ (pauliJ : HW1p2.PauliJ, stateAmps : HW1p2.StateAmps) : Microsoft.Quantum.Canon.BigEndian", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 2641L, 76L, 5L)]
-[assembly: OperationDeclaration("HW1p2", "TestPauliJ () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 5706L, 145L, 33L)]
-[assembly: FunctionDeclaration("HW1p2", "AddComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1196L, 38L, 14L)]
-[assembly: FunctionDeclaration("HW1p2", "ComplexEquivalence (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Bool", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1434L, 44L, 14L)]
-[assembly: FunctionDeclaration("HW1p2", "MultiplyComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1672L, 50L, 14L)]
-[assembly: FunctionDeclaration("HW1p2", "SubtractComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 2327L, 69L, 14L)]
+[assembly: OperationDeclaration("HW1p2", "NextDouble () : Double", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 2274L, 62L, 36L)]
+[assembly: OperationDeclaration("HW1p2", "SquareComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 2429L, 68L, 57L)]
+[assembly: OperationDeclaration("HW1p2", "PerformPauliJ (pauliJ : HW1p2.PauliJ, stateAmps : HW1p2.StateAmps) : Microsoft.Quantum.Canon.BigEndian", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 3002L, 83L, 5L)]
+[assembly: OperationDeclaration("HW1p2", "TestPauliJ () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 6350L, 157L, 33L)]
+[assembly: FunctionDeclaration("HW1p2", "AddComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1491L, 44L, 14L)]
+[assembly: FunctionDeclaration("HW1p2", "ComplexEquivalence (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Bool", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1729L, 50L, 14L)]
+[assembly: FunctionDeclaration("HW1p2", "MultiplyComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 1967L, 56L, 14L)]
+[assembly: FunctionDeclaration("HW1p2", "SubtractComplex (complex1 : Microsoft.Quantum.Extensions.Math.Complex, complex2 : Microsoft.Quantum.Extensions.Math.Complex) : Microsoft.Quantum.Extensions.Math.Complex", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs", 2688L, 76L, 14L)]
 #line hidden
 namespace HW1p2
 {
@@ -135,7 +135,7 @@ namespace HW1p2
             set;
         }
 
-        protected ICallable<String, QVoid> Message
+        protected ICallable<(Double,Double), QVoid> MicrosoftQuantumCanonAssertAlmostEqual
         {
             get;
             set;
@@ -152,21 +152,21 @@ namespace HW1p2
             var b2 = MicrosoftQuantumCanonAbsSquaredComplex.Apply(beta);
 #line 26 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var magnitude = (a2 + b2);
-#line 28 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var validState = (magnitude == 1D);
+            // let validState = magnitude == 1.0;
 #line 29 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            if (!(validState))
-            {
-#line 30 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-                Message.Apply($"a: {alpha}");
-#line 31 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-                Message.Apply($"b: {beta}");
-#line 32 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-                Message.Apply($"mag: {magnitude}");
-#line 33 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-                throw new ExecutionFailException($"Invalid state");
-            }
-
+            MicrosoftQuantumCanonAssertAlmostEqual.Apply((magnitude, 1D));
+            // Message($"{1.0 == 1.0}");
+            // Message($"{magnitude == magnitude}");
+            // Message($"{magnitude == 1}");
+            // if (!validState) {
+            //     Message($"a: {alpha}");
+            //     Message($"b: {beta}");
+            //     Message($"a2: {a2}");
+            //     Message($"b2: {b2}");
+            //     Message($"mag: {magnitude}");
+            //     fail $"Invalid state";
+            // }
+            ;
 #line hidden
             return QVoid.Instance;
         }
@@ -175,7 +175,7 @@ namespace HW1p2
         public override void Init()
         {
             this.MicrosoftQuantumCanonAbsSquaredComplex = this.Factory.Get<ICallable<Microsoft.Quantum.Extensions.Math.Complex, Double>>(typeof(Microsoft.Quantum.Canon.AbsSquaredComplex));
-            this.Message = this.Factory.Get<ICallable<String, QVoid>>(typeof(Microsoft.Quantum.Primitive.Message));
+            this.MicrosoftQuantumCanonAssertAlmostEqual = this.Factory.Get<ICallable<(Double,Double), QVoid>>(typeof(Microsoft.Quantum.Canon.AssertAlmostEqual));
         }
 
         public override IApplyData __dataIn(StateAmps data) => data;
@@ -206,11 +206,11 @@ namespace HW1p2
         public override Func<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex> Body => (__in) =>
         {
             var (complex1,complex2) = __in;
-#line 39 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 45 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real1,imaginary1) = complex1;
-#line 40 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 46 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real2,imaginary2) = complex2;
-#line 41 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 47 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return new Microsoft.Quantum.Extensions.Math.Complex(((real1 + real2), (imaginary1 + imaginary2)));
         }
 
@@ -247,11 +247,11 @@ namespace HW1p2
         public override Func<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Boolean> Body => (__in) =>
         {
             var (complex1,complex2) = __in;
-#line 45 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 51 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real1,imaginary1) = complex1;
-#line 46 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 52 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real2,imaginary2) = complex2;
-#line 47 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 53 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return ((real1 == real2) && (imaginary1 == imaginary2));
         }
 
@@ -288,11 +288,11 @@ namespace HW1p2
         public override Func<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex> Body => (__in) =>
         {
             var (complex1,complex2) = __in;
-#line 51 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 57 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real1,imaginary1) = complex1;
-#line 52 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 58 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real2,imaginary2) = complex2;
-#line 53 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 59 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return new Microsoft.Quantum.Extensions.Math.Complex((((real1 * real2) - (imaginary1 * imaginary2)), ((real1 * imaginary2) + (real2 * imaginary1))));
         }
 
@@ -331,7 +331,7 @@ namespace HW1p2
 
         public override Func<QVoid, Double> Body => (__in) =>
         {
-#line 58 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 64 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return (MicrosoftQuantumExtensionsConvertToDouble.Apply(MicrosoftQuantumCanonRandomInt.Apply(100000L)) / 100000D);
         }
 
@@ -367,9 +367,10 @@ namespace HW1p2
         public override Func<Microsoft.Quantum.Extensions.Math.Complex, Microsoft.Quantum.Extensions.Math.Complex> Body => (__in) =>
         {
             var complex1 = __in;
-#line 64 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            // return Complex(AbsSquaredComplex(complex1), 0.0);
+#line 71 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real,imaginary) = complex1;
-#line 65 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 72 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return new Microsoft.Quantum.Extensions.Math.Complex(((MicrosoftQuantumExtensionsMathPowD.Apply((real, 2D)) - MicrosoftQuantumExtensionsMathPowD.Apply((imaginary, 2D))), ((2D * real) * imaginary)));
         }
 
@@ -407,11 +408,11 @@ namespace HW1p2
         public override Func<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex> Body => (__in) =>
         {
             var (complex1,complex2) = __in;
-#line 70 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 77 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real1,imaginary1) = complex1;
-#line 71 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 78 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (real2,imaginary2) = complex2;
-#line 72 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 79 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return new Microsoft.Quantum.Extensions.Math.Complex(((real1 - real2), (imaginary1 - imaginary2)));
         }
 
@@ -445,6 +446,12 @@ namespace HW1p2
 
         String ICallable.Name => "PerformPauliJ";
         String ICallable.FullName => "HW1p2.PerformPauliJ";
+        protected ICallable<Microsoft.Quantum.Extensions.Math.Complex, Double> MicrosoftQuantumCanonAbsComplex
+        {
+            get;
+            set;
+        }
+
         protected ICallable<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex> AddComplex
         {
             get;
@@ -463,7 +470,13 @@ namespace HW1p2
             set;
         }
 
-        protected ICallable<((Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex),Qubit,Double), QVoid> MicrosoftQuantumExtensionsTestingAssertQubitState
+        protected ICallable<(Int64,Double,Microsoft.Quantum.Canon.BigEndian,Double), QVoid> MicrosoftQuantumCanonAssertProbIntBE
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<StateAmps, QVoid> AssertStateAmps
         {
             get;
             set;
@@ -520,114 +533,119 @@ namespace HW1p2
         public override Func<(PauliJ,StateAmps), Microsoft.Quantum.Canon.BigEndian> Body => (__in) =>
         {
             var (pauliJ,stateAmps) = __in;
-#line 79 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 86 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             AssertJ.Apply(pauliJ);
-            // AssertStateAmps(stateAmps);
-#line 82 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 87 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            AssertStateAmps.Apply(stateAmps);
+#line 89 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (jx,jy,jz) = pauliJ;
-#line 83 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 90 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var (oldAlpha,oldBeta) = stateAmps;
             // let (realOldA, imaginaryOldA) = oldAlpha;
             // let (realOldB, imaginaryOldB) = oldBeta;
-#line 86 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var (realJy,imaginaryJy) = jy;
-#line 88 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var betaJx = MultiplyComplex.Apply((oldBeta, jx));
-#line 89 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var iJy = new Microsoft.Quantum.Extensions.Math.Complex((-(imaginaryJy), realJy));
-#line 90 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var iJyBeta = MultiplyComplex.Apply((oldBeta, iJy));
-#line 91 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jzAlpha = MultiplyComplex.Apply((oldAlpha, jz));
-#line 92 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var betaJxMinusIJyBeta = SubtractComplex.Apply((betaJx, iJyBeta));
 #line 93 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var newAlpha = AddComplex.Apply((betaJxMinusIJyBeta, jzAlpha));
-#line 94 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            Message.Apply($"{newAlpha}");
+            var (realJy,imaginaryJy) = jy;
+#line 95 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var betaJx = MultiplyComplex.Apply((oldBeta, jx));
 #line 96 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var alphaJx = MultiplyComplex.Apply((oldAlpha, jx));
+            var iJy = new Microsoft.Quantum.Extensions.Math.Complex((-(imaginaryJy), realJy));
 #line 97 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var iJyAlpha = MultiplyComplex.Apply((oldAlpha, iJy));
+            var iJyBeta = MultiplyComplex.Apply((oldBeta, iJy));
 #line 98 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jzBeta = MultiplyComplex.Apply((oldBeta, jz));
+            var jzAlpha = MultiplyComplex.Apply((oldAlpha, jz));
 #line 99 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var alphaJxPlusIJyAlpha = AddComplex.Apply((alphaJx, iJyAlpha));
+            var betaJxMinusIJyBeta = SubtractComplex.Apply((betaJx, iJyBeta));
 #line 100 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var newBeta = SubtractComplex.Apply((alphaJxPlusIJyAlpha, jzBeta));
+            var newAlpha = AddComplex.Apply((betaJxMinusIJyBeta, jzAlpha));
 #line 101 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            Message.Apply($"{newBeta}");
+            Message.Apply($"{newAlpha}");
 #line 103 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var oldBetaSquared = SquareComplex.Apply(oldBeta);
+            var alphaJx = MultiplyComplex.Apply((oldAlpha, jx));
 #line 104 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var oldAlphaSquared = SquareComplex.Apply(oldAlpha);
+            var iJyAlpha = MultiplyComplex.Apply((oldAlpha, iJy));
 #line 105 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jx2 = SquareComplex.Apply(jx);
+            var jzBeta = MultiplyComplex.Apply((oldBeta, jz));
 #line 106 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jy2 = SquareComplex.Apply(jy);
+            var alphaJxPlusIJyAlpha = AddComplex.Apply((alphaJx, iJyAlpha));
 #line 107 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jz2 = SquareComplex.Apply(jz);
+            var newBeta = SubtractComplex.Apply((alphaJxPlusIJyAlpha, jzBeta));
 #line 108 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jx2Plusjy2 = AddComplex.Apply((jx2, jy2));
-#line 109 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var alphaBeta = MultiplyComplex.Apply((oldAlpha, oldBeta));
+            Message.Apply($"{newBeta}");
 #line 110 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jxJz = MultiplyComplex.Apply((jx, jz));
+            var oldBetaSquared = SquareComplex.Apply(oldBeta);
 #line 111 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var alphaBetaJxJz = MultiplyComplex.Apply((alphaBeta, jxJz));
+            var oldAlphaSquared = SquareComplex.Apply(oldAlpha);
 #line 112 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var twoAlphaBetaJxJz = MultiplyComplex.Apply((alphaBetaJxJz, new Microsoft.Quantum.Extensions.Math.Complex((2D, 0D))));
+            var jx2 = SquareComplex.Apply(jx);
 #line 113 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jz2Alpha2 = MultiplyComplex.Apply((jz2, oldAlphaSquared));
+            var jy2 = SquareComplex.Apply(jy);
 #line 114 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var beta2TimesJx2PlusJy2 = MultiplyComplex.Apply((oldBetaSquared, jx2Plusjy2));
+            var jz2 = SquareComplex.Apply(jz);
 #line 115 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var expectedAlpha = AddComplex.Apply((AddComplex.Apply((beta2TimesJx2PlusJy2, twoAlphaBetaJxJz)), jz2Alpha2));
+            var jx2Plusjy2 = AddComplex.Apply((jx2, jy2));
 #line 116 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            Message.Apply($"{expectedAlpha}");
+            var alphaBeta = MultiplyComplex.Apply((oldAlpha, oldBeta));
+#line 117 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jxJz = MultiplyComplex.Apply((jx, jz));
 #line 118 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jx2MinusJy2 = SubtractComplex.Apply((jx2, jy2));
+            var alphaBetaJxJz = MultiplyComplex.Apply((alphaBeta, jxJz));
 #line 119 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jz2Beta2 = MultiplyComplex.Apply((jz2, oldBetaSquared));
+            var twoAlphaBetaJxJz = MultiplyComplex.Apply((alphaBetaJxJz, new Microsoft.Quantum.Extensions.Math.Complex((2D, 0D))));
 #line 120 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var alpha2Timesjx2Minusjy2 = MultiplyComplex.Apply((oldAlphaSquared, jx2MinusJy2));
+            var jz2Alpha2 = MultiplyComplex.Apply((jz2, oldAlphaSquared));
 #line 121 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var expectedBeta = AddComplex.Apply((SubtractComplex.Apply((alpha2Timesjx2Minusjy2, twoAlphaBetaJxJz)), jz2Beta2));
+            var beta2TimesJx2PlusJy2 = MultiplyComplex.Apply((oldBetaSquared, jx2Plusjy2));
 #line 122 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            Message.Apply($"{expectedBeta}");
-#line 124 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var newCoefficients = new QArray<Microsoft.Quantum.Canon.ComplexPolar>(2L);
+            var expectedAlpha = AddComplex.Apply((AddComplex.Apply((beta2TimesJx2PlusJy2, twoAlphaBetaJxJz)), jz2Alpha2));
+#line 123 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            Message.Apply($"{expectedAlpha}");
 #line 125 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            newCoefficients[0L] = MicrosoftQuantumCanonComplexToComplexPolar.Apply(newAlpha);
-#line 126 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            newCoefficients[1L] = MicrosoftQuantumCanonComplexToComplexPolar.Apply(newBeta);
-#line 128 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var result = new Microsoft.Quantum.Canon.BigEndian(new QArray<Qubit>(1L));
-#line 129 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var qubits = Allocate.Apply(1L);
-#line 131 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var transformed = new Microsoft.Quantum.Canon.BigEndian(qubits);
+            var expectedBeta = new Microsoft.Quantum.Extensions.Math.Complex(((1D - MicrosoftQuantumCanonAbsComplex.Apply(expectedAlpha)), 0D));
+            // let jx2MinusJy2 = SubtractComplex(jx2, jy2);
+            // let jz2Beta2 = MultiplyComplex(jz2, oldBetaSquared);
+            // let alpha2Timesjx2Minusjy2 = MultiplyComplex(oldAlphaSquared, jx2MinusJy2);
+            // let expectedBeta = AddComplex(SubtractComplex(alpha2Timesjx2Minusjy2, twoAlphaBetaJxJz), jz2Beta2);
+#line 130 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            Message.Apply($"{expectedBeta}");
 #line 132 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            MicrosoftQuantumCanonPrepareArbitraryState.Apply((newCoefficients, transformed));
+            var newCoefficients = new QArray<Microsoft.Quantum.Canon.ComplexPolar>(2L);
+#line 133 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            newCoefficients[0L] = MicrosoftQuantumCanonComplexToComplexPolar.Apply(newAlpha);
 #line 134 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            MicrosoftQuantumExtensionsTestingAssertQubitState.Apply(((expectedAlpha, expectedBeta), transformed[0L], 1E-15D));
+            newCoefficients[1L] = MicrosoftQuantumCanonComplexToComplexPolar.Apply(newBeta);
 #line 136 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var result = new Microsoft.Quantum.Canon.BigEndian(new QArray<Qubit>(1L));
+#line 137 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var qubits = Allocate.Apply(1L);
+#line 139 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var transformed = new Microsoft.Quantum.Canon.BigEndian(qubits);
+#line 140 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            MicrosoftQuantumCanonPrepareArbitraryState.Apply((newCoefficients, transformed));
+            // AssertProbIntBE(0, AbsComplex(expectedAlpha), transformed, 0.00001);
+            // AssertProbIntBE(1, AbsComplex(expectedBeta), transformed, 0.00001);
+#line 145 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            MicrosoftQuantumCanonAssertProbIntBE.Apply((1L, 1D, transformed, 1E-05D));
+#line 146 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            Message.Apply("+ eigenvalue is correct");
+#line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             result = transformed;
-#line 138 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 150 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             ResetAll.Apply(qubits);
 #line hidden
             Release.Apply(qubits);
-#line 141 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 153 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             return result;
         }
 
         ;
         public override void Init()
         {
+            this.MicrosoftQuantumCanonAbsComplex = this.Factory.Get<ICallable<Microsoft.Quantum.Extensions.Math.Complex, Double>>(typeof(Microsoft.Quantum.Canon.AbsComplex));
             this.AddComplex = this.Factory.Get<ICallable<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex>>(typeof(HW1p2.AddComplex));
             this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
             this.AssertJ = this.Factory.Get<ICallable<PauliJ, QVoid>>(typeof(HW1p2.AssertJ));
-            this.MicrosoftQuantumExtensionsTestingAssertQubitState = this.Factory.Get<ICallable<((Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex),Qubit,Double), QVoid>>(typeof(Microsoft.Quantum.Extensions.Testing.AssertQubitState));
+            this.MicrosoftQuantumCanonAssertProbIntBE = this.Factory.Get<ICallable<(Int64,Double,Microsoft.Quantum.Canon.BigEndian,Double), QVoid>>(typeof(Microsoft.Quantum.Canon.AssertProbIntBE));
+            this.AssertStateAmps = this.Factory.Get<ICallable<StateAmps, QVoid>>(typeof(HW1p2.AssertStateAmps));
             this.MicrosoftQuantumCanonComplexToComplexPolar = this.Factory.Get<ICallable<Microsoft.Quantum.Extensions.Math.Complex, Microsoft.Quantum.Canon.ComplexPolar>>(typeof(Microsoft.Quantum.Canon.ComplexToComplexPolar));
             this.Message = this.Factory.Get<ICallable<String, QVoid>>(typeof(Microsoft.Quantum.Primitive.Message));
             this.MultiplyComplex = this.Factory.Get<ICallable<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex>>(typeof(HW1p2.MultiplyComplex));
@@ -654,7 +672,25 @@ namespace HW1p2
 
         String ICallable.Name => "TestPauliJ";
         String ICallable.FullName => "HW1p2.TestPauliJ";
+        protected ICallable<PauliJ, QVoid> AssertJ
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<QVoid, Double> NextDouble
+        {
+            get;
+            set;
+        }
+
         protected ICallable<(PauliJ,StateAmps), Microsoft.Quantum.Canon.BigEndian> PerformPauliJ
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<(Double,Double), Double> MicrosoftQuantumExtensionsMathPowD
         {
             get;
             set;
@@ -668,40 +704,46 @@ namespace HW1p2
 
         public override Func<QVoid, QVoid> Body => (__in) =>
         {
-            // AssertJ(pauliJ);
-#line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var sqrtHalf = MicrosoftQuantumExtensionsMathSqrt.Apply((1D / 2D));
-#line 149 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var sqrtThird = MicrosoftQuantumExtensionsMathSqrt.Apply((1D / 3D));
-#line 151 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jx = new Microsoft.Quantum.Extensions.Math.Complex((sqrtThird, 0D));
-#line 152 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jy = new Microsoft.Quantum.Extensions.Math.Complex((sqrtThird, 0D));
-#line 153 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var jz = new Microsoft.Quantum.Extensions.Math.Complex((sqrtThird, 0D));
-            // let jx = NextDouble();
-            // let jy = Sqrt(NextDouble() * (1.0 - PowD(jx, 2.0)));
-            // let jz = Sqrt(1.0 - PowD(jx, 2.0) - PowD(jy, 2.0));
-            // let pauliJ = PauliJ(jx, jy, jz);
 #line 159 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var alphaD = sqrtHalf;
+            var sqrtHalf = MicrosoftQuantumExtensionsMathSqrt.Apply((1D / 2D));
 #line 160 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var sqrtThird = MicrosoftQuantumExtensionsMathSqrt.Apply((1D / 3D));
+            // let jx = Complex(sqrtThird, 0.0);
+            // let jy = Complex(sqrtThird, 0.0);
+            // let jz = Complex(sqrtThird, 0.0);
+#line 165 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jxReal = NextDouble.Apply(QVoid.Instance);
+#line 166 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jyReal = MicrosoftQuantumExtensionsMathSqrt.Apply((NextDouble.Apply(QVoid.Instance) * (1D - MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)))));
+#line 167 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jzReal = MicrosoftQuantumExtensionsMathSqrt.Apply(((1D - MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D))) - MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D))));
+#line 168 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jx = new Microsoft.Quantum.Extensions.Math.Complex((jxReal, 0D));
+#line 169 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jy = new Microsoft.Quantum.Extensions.Math.Complex((jyReal, 0D));
+#line 170 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var jz = new Microsoft.Quantum.Extensions.Math.Complex((jzReal, 0D));
+#line 171 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            AssertJ.Apply(new PauliJ((jx, jy, jz)));
+#line 173 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var alphaD = sqrtHalf;
+#line 174 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var betaD = sqrtHalf;
             // let alphaD = NextDouble();
             // let betaD = Sqrt(1.0 - PowD(alphaD, 2.0));
-#line 163 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 177 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var alpha = new Microsoft.Quantum.Extensions.Math.Complex((alphaD, 0D));
-#line 164 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+#line 178 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var beta = new Microsoft.Quantum.Extensions.Math.Complex((betaD, 0D));
-            // let eigenPlusAlpha = Complex(Sqrt((1.0 + jz) / 2.0), 0.0);
-            // let eigenPlusBeta = Complex(
-            //     jx * (1.0 - jz) / (PowD(jx, 2.0) + PowD(jy, 2.0)),
-            //     jy * (1.0 - jz) / (PowD(jx, 2.0) + PowD(jy, 2.0))
-            // );
-#line 172 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var transformed = PerformPauliJ.Apply((new PauliJ((jx, jy, jz)), new StateAmps((alpha, beta))));
-            // Message($"{transformed}");
-            // AssertProbIntBE(1, 1.0, transformed, 0.000000000000001);
+#line 180 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var eigenPlusScalar = MicrosoftQuantumExtensionsMathSqrt.Apply(((1D + jzReal) / 2D));
+#line 181 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var eigenPlusAlpha = new Microsoft.Quantum.Extensions.Math.Complex((eigenPlusScalar, 0D));
+#line 182 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var eigenPlusBeta = new Microsoft.Quantum.Extensions.Math.Complex(((eigenPlusScalar * ((jxReal * (1D - jzReal)) / (MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)) + MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D))))), (eigenPlusScalar * ((jyReal * (1D - jzReal)) / (MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)) + MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D)))))));
+#line 187 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            var transformed = PerformPauliJ.Apply((new PauliJ((jx, jy, jz)), new StateAmps((eigenPlusAlpha, eigenPlusBeta))));
+            // AssertProbIntBE(1, 1.0, transformed, 0.00001);
             // Message("+ eigenvalue is correct");
             ;
 #line hidden
@@ -711,7 +753,10 @@ namespace HW1p2
         ;
         public override void Init()
         {
+            this.AssertJ = this.Factory.Get<ICallable<PauliJ, QVoid>>(typeof(HW1p2.AssertJ));
+            this.NextDouble = this.Factory.Get<ICallable<QVoid, Double>>(typeof(HW1p2.NextDouble));
             this.PerformPauliJ = this.Factory.Get<ICallable<(PauliJ,StateAmps), Microsoft.Quantum.Canon.BigEndian>>(typeof(HW1p2.PerformPauliJ));
+            this.MicrosoftQuantumExtensionsMathPowD = this.Factory.Get<ICallable<(Double,Double), Double>>(typeof(Microsoft.Quantum.Extensions.Math.PowD));
             this.MicrosoftQuantumExtensionsMathSqrt = this.Factory.Get<ICallable<Double, Double>>(typeof(Microsoft.Quantum.Extensions.Math.Sqrt));
         }
 

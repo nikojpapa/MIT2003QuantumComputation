@@ -25,13 +25,19 @@
             let b2 = AbsSquaredComplex(beta);
             let magnitude = a2 + b2;
 
-            let validState = magnitude == 1.0;
-            if (!validState) {
-                Message($"a: {alpha}");
-                Message($"b: {beta}");
-                Message($"mag: {magnitude}");
-                fail $"Invalid state";
-            }
+            // let validState = magnitude == 1.0;
+            AssertAlmostEqual(magnitude, 1.0);
+            // Message($"{1.0 == 1.0}");
+            // Message($"{magnitude == magnitude}");
+            // Message($"{magnitude == 1}");
+            // if (!validState) {
+            //     Message($"a: {alpha}");
+            //     Message($"b: {beta}");
+            //     Message($"a2: {a2}");
+            //     Message($"b2: {b2}");
+            //     Message($"mag: {magnitude}");
+            //     fail $"Invalid state";
+            // }
         }
     }
 
@@ -61,6 +67,7 @@
 
     operation SquareComplex(complex1: Complex): Complex {
         body {
+            // return Complex(AbsSquaredComplex(complex1), 0.0);
             let (real, imaginary) = complex1;
             return Complex(PowD(real, 2.0) - PowD(imaginary, 2.0), 2.0 * real * imaginary);
         } 
@@ -77,7 +84,7 @@
         body
         {
             AssertJ(pauliJ);
-            // AssertStateAmps(stateAmps);
+            AssertStateAmps(stateAmps);
 
             let (jx, jy, jz) = pauliJ;
             let (oldAlpha, oldBeta) = stateAmps;
@@ -115,10 +122,11 @@
             let expectedAlpha = AddComplex(AddComplex(beta2TimesJx2PlusJy2, twoAlphaBetaJxJz), jz2Alpha2);
             Message($"{expectedAlpha}");
 
-            let jx2MinusJy2 = SubtractComplex(jx2, jy2);
-            let jz2Beta2 = MultiplyComplex(jz2, oldBetaSquared);
-            let alpha2Timesjx2Minusjy2 = MultiplyComplex(oldAlphaSquared, jx2MinusJy2);
-            let expectedBeta = AddComplex(SubtractComplex(alpha2Timesjx2Minusjy2, twoAlphaBetaJxJz), jz2Beta2);
+            let expectedBeta = Complex(1.0 - AbsComplex(expectedAlpha), 0.0);
+            // let jx2MinusJy2 = SubtractComplex(jx2, jy2);
+            // let jz2Beta2 = MultiplyComplex(jz2, oldBetaSquared);
+            // let alpha2Timesjx2Minusjy2 = MultiplyComplex(oldAlphaSquared, jx2MinusJy2);
+            // let expectedBeta = AddComplex(SubtractComplex(alpha2Timesjx2Minusjy2, twoAlphaBetaJxJz), jz2Beta2);
             Message($"{expectedBeta}");
 
             mutable newCoefficients = new ComplexPolar[2];
@@ -131,7 +139,11 @@
                 mutable transformed = BigEndian(qubits);
                 PrepareArbitraryState(newCoefficients, transformed);
 
-                AssertQubitState((expectedAlpha, expectedBeta), transformed[0], 0.000000000000001);
+                // AssertProbIntBE(0, AbsComplex(expectedAlpha), transformed, 0.00001);
+                // AssertProbIntBE(1, AbsComplex(expectedBeta), transformed, 0.00001);
+
+                AssertProbIntBE(1, 1.0, transformed, 0.00001);
+                Message("+ eigenvalue is correct");
 
                 set result = transformed;
 
@@ -144,17 +156,19 @@
 
     operation TestPauliJ (): () {
         body {
-            // AssertJ(pauliJ);
             let sqrtHalf = Sqrt(1.0 / 2.0);
             let sqrtThird = Sqrt(1.0 / 3.0);
             
-            let jx = Complex(sqrtThird, 0.0);
-            let jy = Complex(sqrtThird, 0.0);
-            let jz = Complex(sqrtThird, 0.0);
-            // let jx = NextDouble();
-            // let jy = Sqrt(NextDouble() * (1.0 - PowD(jx, 2.0)));
-            // let jz = Sqrt(1.0 - PowD(jx, 2.0) - PowD(jy, 2.0));
-            // let pauliJ = PauliJ(jx, jy, jz);
+            // let jx = Complex(sqrtThird, 0.0);
+            // let jy = Complex(sqrtThird, 0.0);
+            // let jz = Complex(sqrtThird, 0.0);
+            let jxReal = NextDouble();
+            let jyReal = Sqrt(NextDouble() * (1.0 - PowD(jxReal, 2.0)));
+            let jzReal = Sqrt(1.0 - PowD(jxReal, 2.0) - PowD(jyReal, 2.0));
+            let jx = Complex(jxReal, 0.0);
+            let jy = Complex(jyReal, 0.0);
+            let jz = Complex(jzReal, 0.0);
+            AssertJ(PauliJ(jx, jy, jz));
 
             let alphaD = sqrtHalf;
             let betaD = sqrtHalf;
@@ -163,16 +177,16 @@
             let alpha = Complex(alphaD, 0.0);
             let beta = Complex(betaD, 0.0);
 
-            // let eigenPlusAlpha = Complex(Sqrt((1.0 + jz) / 2.0), 0.0);
-            // let eigenPlusBeta = Complex(
-            //     jx * (1.0 - jz) / (PowD(jx, 2.0) + PowD(jy, 2.0)),
-            //     jy * (1.0 - jz) / (PowD(jx, 2.0) + PowD(jy, 2.0))
-            // );
+            let eigenPlusScalar = Sqrt((1.0 + jzReal) / 2.0);
+            let eigenPlusAlpha = Complex(eigenPlusScalar, 0.0);
+            let eigenPlusBeta = Complex(
+                eigenPlusScalar * (jxReal * (1.0 - jzReal) / (PowD(jxReal, 2.0) + PowD(jyReal, 2.0))),
+                eigenPlusScalar * (jyReal * (1.0 - jzReal) / (PowD(jxReal, 2.0) + PowD(jyReal, 2.0)))
+            );
 
-            let transformed = PerformPauliJ(PauliJ(jx, jy, jz), StateAmps(alpha, beta));
+            let transformed = PerformPauliJ(PauliJ(jx, jy, jz), StateAmps(eigenPlusAlpha, eigenPlusBeta));
 
-            // Message($"{transformed}");
-            // AssertProbIntBE(1, 1.0, transformed, 0.000000000000001);
+            // AssertProbIntBE(1, 1.0, transformed, 0.00001);
             // Message("+ eigenvalue is correct");
         }
     }
