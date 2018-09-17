@@ -1,0 +1,13 @@
+:: files ::
+Operation.qs
+:: qsim ::
+:: references ::
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.canon/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Canon.dll
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.MetaData.dll
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Primitives.dll
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.Common.dll
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.Core.dll
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.QCTraceSimulatorRuntime.dll
+/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.Simulators.dll
+:: command ::
+dotnet "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/build/../tools/qsc/qsc.dll" --input "Operation.qs" --references "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.canon/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Canon.dll" "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.MetaData.dll" "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Primitives.dll" "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.Common.dll" "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.Core.dll" "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.QCTraceSimulatorRuntime.dll" "/Users/nicholaspapadopoulos/.nuget/packages/microsoft.quantum.development.kit/0.2.1806.3001-preview/lib/netstandard2.0/Microsoft.Quantum.Simulation.Simulators.dll" --outputpath obj/qsharp/src/
