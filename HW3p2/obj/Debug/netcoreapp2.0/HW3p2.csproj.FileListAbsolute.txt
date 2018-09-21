@@ -1,0 +1,11 @@
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/obj/Debug/netcoreapp2.0/HW3p2.csprojAssemblyReference.cache
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/obj/Debug/netcoreapp2.0/HW3p2.csproj.CoreCompileInputs.cache
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/obj/Debug/netcoreapp2.0/HW3p2.AssemblyInfoInputs.cache
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/obj/Debug/netcoreapp2.0/HW3p2.AssemblyInfo.cs
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/bin/Debug/netcoreapp2.0/HW3p2.deps.json
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/bin/Debug/netcoreapp2.0/HW3p2.runtimeconfig.json
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/bin/Debug/netcoreapp2.0/HW3p2.runtimeconfig.dev.json
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/bin/Debug/netcoreapp2.0/HW3p2.dll
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/bin/Debug/netcoreapp2.0/HW3p2.pdb
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/obj/Debug/netcoreapp2.0/HW3p2.dll
+/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/obj/Debug/netcoreapp2.0/HW3p2.pdb

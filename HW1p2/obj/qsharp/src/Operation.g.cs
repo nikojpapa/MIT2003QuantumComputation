@@ -621,12 +621,12 @@ namespace HW1p2
             var transformed = new Microsoft.Quantum.Canon.BigEndian(qubits);
 #line 140 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             MicrosoftQuantumCanonPrepareArbitraryState.Apply((newCoefficients, transformed));
-            // AssertProbIntBE(0, AbsComplex(expectedAlpha), transformed, 0.00001);
-            // AssertProbIntBE(1, AbsComplex(expectedBeta), transformed, 0.00001);
-#line 145 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            MicrosoftQuantumCanonAssertProbIntBE.Apply((1L, 1D, transformed, 1E-05D));
-#line 146 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            Message.Apply("+ eigenvalue is correct");
+#line 142 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            MicrosoftQuantumCanonAssertProbIntBE.Apply((0L, MicrosoftQuantumCanonAbsComplex.Apply(expectedAlpha), transformed, 1E-05D));
+#line 143 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
+            MicrosoftQuantumCanonAssertProbIntBE.Apply((1L, MicrosoftQuantumCanonAbsComplex.Apply(expectedBeta), transformed, 1E-05D));
+            // AssertProbIntBE(1, 1.0, transformed, 0.00001);
+            // Message("+ eigenvalue is correct");
 #line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             result = transformed;
 #line 150 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
@@ -673,6 +673,12 @@ namespace HW1p2
         String ICallable.Name => "TestPauliJ";
         String ICallable.FullName => "HW1p2.TestPauliJ";
         protected ICallable<PauliJ, QVoid> AssertJ
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex> MultiplyComplex
         {
             get;
             set;
@@ -740,7 +746,7 @@ namespace HW1p2
 #line 181 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var eigenPlusAlpha = new Microsoft.Quantum.Extensions.Math.Complex((eigenPlusScalar, 0D));
 #line 182 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
-            var eigenPlusBeta = new Microsoft.Quantum.Extensions.Math.Complex(((eigenPlusScalar * ((jxReal * (1D - jzReal)) / (MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)) + MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D))))), (eigenPlusScalar * ((jyReal * (1D - jzReal)) / (MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)) + MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D)))))));
+            var eigenPlusBeta = MultiplyComplex.Apply((eigenPlusAlpha, new Microsoft.Quantum.Extensions.Math.Complex((((jxReal * (1D - jzReal)) / (MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)) + MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D)))), ((jyReal * (1D - jzReal)) / (MicrosoftQuantumExtensionsMathPowD.Apply((jxReal, 2D)) + MicrosoftQuantumExtensionsMathPowD.Apply((jyReal, 2D))))))));
 #line 187 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW1p2/Operation.qs"
             var transformed = PerformPauliJ.Apply((new PauliJ((jx, jy, jz)), new StateAmps((eigenPlusAlpha, eigenPlusBeta))));
             // AssertProbIntBE(1, 1.0, transformed, 0.00001);
@@ -754,6 +760,7 @@ namespace HW1p2
         public override void Init()
         {
             this.AssertJ = this.Factory.Get<ICallable<PauliJ, QVoid>>(typeof(HW1p2.AssertJ));
+            this.MultiplyComplex = this.Factory.Get<ICallable<(Microsoft.Quantum.Extensions.Math.Complex,Microsoft.Quantum.Extensions.Math.Complex), Microsoft.Quantum.Extensions.Math.Complex>>(typeof(HW1p2.MultiplyComplex));
             this.NextDouble = this.Factory.Get<ICallable<QVoid, Double>>(typeof(HW1p2.NextDouble));
             this.PerformPauliJ = this.Factory.Get<ICallable<(PauliJ,StateAmps), Microsoft.Quantum.Canon.BigEndian>>(typeof(HW1p2.PerformPauliJ));
             this.MicrosoftQuantumExtensionsMathPowD = this.Factory.Get<ICallable<(Double,Double), Double>>(typeof(Microsoft.Quantum.Extensions.Math.PowD));

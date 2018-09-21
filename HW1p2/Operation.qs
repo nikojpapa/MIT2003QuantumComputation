@@ -139,11 +139,11 @@
                 mutable transformed = BigEndian(qubits);
                 PrepareArbitraryState(newCoefficients, transformed);
 
-                // AssertProbIntBE(0, AbsComplex(expectedAlpha), transformed, 0.00001);
-                // AssertProbIntBE(1, AbsComplex(expectedBeta), transformed, 0.00001);
+                AssertProbIntBE(0, AbsComplex(expectedAlpha), transformed, 0.00001);
+                AssertProbIntBE(1, AbsComplex(expectedBeta), transformed, 0.00001);
 
-                AssertProbIntBE(1, 1.0, transformed, 0.00001);
-                Message("+ eigenvalue is correct");
+                // AssertProbIntBE(1, 1.0, transformed, 0.00001);
+                // Message("+ eigenvalue is correct");
 
                 set result = transformed;
 
@@ -179,10 +179,10 @@
 
             let eigenPlusScalar = Sqrt((1.0 + jzReal) / 2.0);
             let eigenPlusAlpha = Complex(eigenPlusScalar, 0.0);
-            let eigenPlusBeta = Complex(
-                eigenPlusScalar * (jxReal * (1.0 - jzReal) / (PowD(jxReal, 2.0) + PowD(jyReal, 2.0))),
-                eigenPlusScalar * (jyReal * (1.0 - jzReal) / (PowD(jxReal, 2.0) + PowD(jyReal, 2.0)))
-            );
+            let eigenPlusBeta = MultiplyComplex(eigenPlusAlpha, Complex(
+                jxReal * (1.0 - jzReal) / (PowD(jxReal, 2.0) + PowD(jyReal, 2.0)),
+                jyReal * (1.0 - jzReal) / (PowD(jxReal, 2.0) + PowD(jyReal, 2.0))
+            ));
 
             let transformed = PerformPauliJ(PauliJ(jx, jy, jz), StateAmps(eigenPlusAlpha, eigenPlusBeta));
 
