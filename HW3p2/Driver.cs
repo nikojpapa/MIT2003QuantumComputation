@@ -8,8 +8,14 @@ namespace HW3p2
         static void Main(string[] args)
         {
             using (var sim = new QuantumSimulator()) {
-                EntryPoint.Run(sim).Wait();
+                // // Problem 2
+                // EntryPoint.Run(sim).Wait();
+
+                // Problem 3
+                Test.Run(sim).Wait();
+                EntryProblem3.Run(sim).Wait();
             }
+
         }
     }
 }
