@@ -5,14 +5,12 @@
     open Microsoft.Quantum.Extensions.Math;
     open Microsoft.Quantum.Primitive;
 
-    operation PowRn (y: Int, k: Int, qubits: BigEndian) : ()
+    operation PowRn (y: Int, n: Int, qubits: BigEndian) : ()
     {
         body
         {
-            // Message($"y: {y}");
             for (i in 0..Length(qubits)-1) {
-                // Message($"i: {i}");
-                R1Frac(2 * y, k, qubits[i]);
+                R1Frac(y, i, qubits[i]);
             }
         }
     }
@@ -49,10 +47,10 @@
                 // AssertProbIntBE(1, 1.0, bigEndian, 0.000001);
 
                 QFT(bigEndian);
-                // PowRn(operandB, numInputQubits, bigEndian);
-                for (i in 0..operandB-1) {
-                    Rn(numInputQubits, bigEndian);
-                }
+                PowRn(operandB, numInputQubits, bigEndian);
+                // for (i in 0..operandB-1) {
+                //     Rn(numInputQubits, bigEndian);
+                // }
                 (Adjoint QFT)(bigEndian);
 
                 for (i in 0..numInputQubits-1) {
@@ -104,8 +102,8 @@
 
     operation EntryPoint(): () {
         body {
-            let numTestQubits = 3;
-            let maxOperandB = 3;
+            let numTestQubits = 2;
+            let maxOperandB = 2;
 
             mutable initialBinaries = new Int[][1];
             set initialBinaries[0] = new Int[numTestQubits];

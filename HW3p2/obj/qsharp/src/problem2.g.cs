@@ -4,11 +4,11 @@ using Microsoft.Quantum.Primitive;
 using Microsoft.Quantum.Simulation.Core;
 using Microsoft.Quantum.MetaData.Attributes;
 
-[assembly: OperationDeclaration("HW3p2", "PowRn (y : Int, k : Int, qubits : Microsoft.Quantum.Canon.BigEndian) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 255L, 9L, 5L)]
+[assembly: OperationDeclaration("HW3p2", "PowRn (y : Int, n : Int, qubits : Microsoft.Quantum.Canon.BigEndian) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 255L, 9L, 5L)]
 [assembly: OperationDeclaration("HW3p2", "Rn (n : Int, qubits : Microsoft.Quantum.Canon.BigEndian) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 541L, 21L, 5L)]
 [assembly: OperationDeclaration("HW3p2", "PerformAddition (binaryOperandA : Int[], operandB : Int) : Int[]", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 769L, 30L, 76L)]
-[assembly: OperationDeclaration("HW3p2", "EntryPoint () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 3463L, 105L, 32L)]
-[assembly: FunctionDeclaration("HW3p2", "GenerateBinaries (allBinaries : Int[][], depth : Int) : Int[][]", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 2426L, 76L, 14L)]
+[assembly: OperationDeclaration("HW3p2", "EntryPoint () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 3469L, 105L, 32L)]
+[assembly: FunctionDeclaration("HW3p2", "GenerateBinaries (allBinaries : Int[][], depth : Int) : Int[][]", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs", 2432L, 76L, 14L)]
 #line hidden
 namespace HW3p2
 {
@@ -37,14 +37,14 @@ namespace HW3p2
 
         public override Func<(Int64,Int64,Microsoft.Quantum.Canon.BigEndian), QVoid> Body => (__in) =>
         {
-            var (y,k,qubits) = __in;
+            var (y,n,qubits) = __in;
             // Message($"y: {y}");
 #line 13 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
-            foreach (var i in new Range(0L, (qubits.Count - 1L)))
+            foreach (var i in new Range(1L, (qubits.Count - 1L)))
             {
                 // Message($"i: {i}");
 #line 15 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
-                MicrosoftQuantumPrimitiveR1Frac.Apply(((2L * y), k, qubits[i]));
+                MicrosoftQuantumPrimitiveR1Frac.Apply(((2L * y), i, qubits[i]));
             }
 
 #line hidden
@@ -59,9 +59,9 @@ namespace HW3p2
 
         public override IApplyData __dataIn((Int64,Int64,Microsoft.Quantum.Canon.BigEndian) data) => new In(data);
         public override IApplyData __dataOut(QVoid data) => data;
-        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, Int64 y, Int64 k, Microsoft.Quantum.Canon.BigEndian qubits)
+        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, Int64 y, Int64 n, Microsoft.Quantum.Canon.BigEndian qubits)
         {
-            return __m__.Run<PowRn, (Int64,Int64,Microsoft.Quantum.Canon.BigEndian), QVoid>((y, k, qubits));
+            return __m__.Run<PowRn, (Int64,Int64,Microsoft.Quantum.Canon.BigEndian), QVoid>((y, n, qubits));
         }
     }
 
@@ -151,6 +151,12 @@ namespace HW3p2
             set;
         }
 
+        protected ICallable<(Int64,Int64,Microsoft.Quantum.Canon.BigEndian), QVoid> PowRn
+        {
+            get;
+            set;
+        }
+
         protected IUnitary<Microsoft.Quantum.Canon.BigEndian> MicrosoftQuantumCanonQFT
         {
             get;
@@ -164,12 +170,6 @@ namespace HW3p2
         }
 
         protected ICallable<QArray<Qubit>, QVoid> ResetAll
-        {
-            get;
-            set;
-        }
-
-        protected ICallable<(Int64,Microsoft.Quantum.Canon.BigEndian), QVoid> Rn
         {
             get;
             set;
@@ -213,14 +213,11 @@ namespace HW3p2
             // AssertProbIntBE(1, 1.0, bigEndian, 0.000001);
 #line 51 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
             MicrosoftQuantumCanonQFT.Apply(bigEndian);
-            // PowRn(operandB, numInputQubits, bigEndian);
-#line 53 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
-            foreach (var i in new Range(0L, (operandB - 1L)))
-            {
-#line 54 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
-                Rn.Apply((numInputQubits, bigEndian));
-            }
-
+#line 52 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
+            PowRn.Apply((operandB, numInputQubits, bigEndian));
+            // for (i in 0..operandB-1) {
+            //     Rn(numInputQubits, bigEndian);
+            // }
 #line 56 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
             MicrosoftQuantumCanonQFT.Adjoint.Apply(bigEndian);
 #line 58 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
@@ -257,10 +254,10 @@ namespace HW3p2
             this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
             this.MicrosoftQuantumCanonIsResultOne = this.Factory.Get<ICallable<Result, Boolean>>(typeof(Microsoft.Quantum.Canon.IsResultOne));
             this.M = this.Factory.Get<ICallable<Qubit, Result>>(typeof(Microsoft.Quantum.Primitive.M));
+            this.PowRn = this.Factory.Get<ICallable<(Int64,Int64,Microsoft.Quantum.Canon.BigEndian), QVoid>>(typeof(HW3p2.PowRn));
             this.MicrosoftQuantumCanonQFT = this.Factory.Get<IUnitary<Microsoft.Quantum.Canon.BigEndian>>(typeof(Microsoft.Quantum.Canon.QFT));
             this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
             this.ResetAll = this.Factory.Get<ICallable<QArray<Qubit>, QVoid>>(typeof(Microsoft.Quantum.Primitive.ResetAll));
-            this.Rn = this.Factory.Get<ICallable<(Int64,Microsoft.Quantum.Canon.BigEndian), QVoid>>(typeof(HW3p2.Rn));
             this.MicrosoftQuantumPrimitiveX = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.X));
         }
 
@@ -385,9 +382,9 @@ namespace HW3p2
         public override Func<QVoid, QVoid> Body => (__in) =>
         {
 #line 107 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
-            var numTestQubits = 3L;
+            var numTestQubits = 2L;
 #line 108 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
-            var maxOperandB = 3L;
+            var maxOperandB = 2L;
 #line 110 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
             var initialBinaries = new QArray<QArray<Int64>>(1L);
 #line 111 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem2.qs"
