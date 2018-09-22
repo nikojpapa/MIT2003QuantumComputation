@@ -5,57 +5,57 @@
     open Microsoft.Quantum.Extensions.Math;
     open Microsoft.Quantum.Primitive;
 
-    operation Rn (n: Int, target: Qubit) : ()
+    operation PowRn (y: Int, k: Int, qubits: BigEndian) : ()
     {
         body
         {
-            for (k in 0..n-1) {
-                RFrac(PauliI, k, n, target);
+            // Message($"y: {y}");
+            for (i in 0..Length(qubits)-1) {
+                // Message($"i: {i}");
+                R1Frac(2 * y, k, qubits[i]);
             }
         }
     }
 
-    operation EntryPoint(): () {
-        body{
-            // mutable binaryOperandA = new Int[3];
-            // for (i in 0..2) {
-            //     set binaryOperandA[i] = 0;
-            // }
-            let operandA = 0;
-            let operandB = 0;
-
-            let result = PerformAddition(operandA, operandB);
-            mutable display = "";
-            for (i in 0..Length(result) - 1) {
-                set display = display + ToStringI(result[i]);
+    operation Rn (n: Int, qubits: BigEndian) : ()
+    {
+        body
+        {
+            for (i in 0..Length(qubits)-1) {
+                (R1Frac)(1, i, qubits[i]);
             }
-            Message(display);
-
         }
     }
 
-    operation PerformAddition(operandA: Int, operandB: Int): Int[] {
+    operation PerformAddition(binaryOperandA: Int[], operandB: Int): Int[] {
         body {
-            let numStates = operandA + 1;
-            mutable initialStateCoefficients = new ComplexPolar[numStates];
-            set initialStateCoefficients[0] = ComplexPolar(1.0, 0.0);
-            for (i in 1..Length(initialStateCoefficients)-1) {
-                set initialStateCoefficients[i] = ComplexPolar(0.0, 0.0);
-            }
-            Message($"{initialStateCoefficients}");
+            let numInputQubits = Length(binaryOperandA);
+            mutable initialStateCoefficients = new ComplexPolar[numInputQubits];
+            // for (i in 0..Length(initialStateCoefficients)-2) {
+            //     set initialStateCoefficients[i] = ComplexPolar(0.0, 0.0);
+            // }
+            // set initialStateCoefficients[numStates - 1] = ComplexPolar(1.0, 0.0);
+            // Message($"{initialStateCoefficients}");
 
-            mutable resultBinary = new Int[numStates];
+            mutable resultBinary = new Int[numInputQubits];
 
-            using (qubits = Qubit[numStates]) {
-                let bigEndian = BigEndian(qubits);
-                PrepareArbitraryState(initialStateCoefficients, bigEndian);
+            using (qubits = Qubit[numInputQubits]) {
+                mutable bigEndian = BigEndian(qubits);
+                for (i in 0..numInputQubits-1) {
+                    if (binaryOperandA[i] == 1) {
+                        X(bigEndian[i]);
+                    }
+                }
+                // AssertProbIntBE(1, 1.0, bigEndian, 0.000001);
+
                 QFT(bigEndian);
-                for (i in 0..operandB) {
-                    Rn(numStates, bigEndian[i]);
+                // PowRn(operandB, numInputQubits, bigEndian);
+                for (i in 0..operandB-1) {
+                    Rn(numInputQubits, bigEndian);
                 }
                 (Adjoint QFT)(bigEndian);
 
-                for (i in 0..numStates-1) {
+                for (i in 0..numInputQubits-1) {
                     mutable intResult = 0;
                     let result = M(bigEndian[i]);
                     let resultIsOne = IsResultOne(result);
@@ -70,6 +70,60 @@
             }
 
             return resultBinary;
+        }
+    }
+
+    function GenerateBinaries(allBinaries: Int[][], depth: Int): Int[][] {
+        let numBinaries = Length(allBinaries);
+        let lastBinary = allBinaries[numBinaries - 1];
+        let binaryLength = Length(lastBinary);
+        let newBinaryPosition = numBinaries;
+
+        if (depth > binaryLength - 1) {
+            return allBinaries;
+        }
+
+        mutable newBinary = new Int[binaryLength];
+        for (i in 0..binaryLength - 1) {
+            set newBinary[i] = lastBinary[i];
+        }
+
+        let binariesFromZero = GenerateBinaries(allBinaries, depth + 1);
+
+        set newBinary[depth] = 1;
+        mutable newAllBinaries2 = new Int[][Length(binariesFromZero) + 1];
+        for (i in 0..Length(binariesFromZero) - 1) {
+            set newAllBinaries2[i] = binariesFromZero[i];
+        }
+        set newAllBinaries2[Length(binariesFromZero)] = newBinary;
+
+        let binariesFromOne = GenerateBinaries(newAllBinaries2, depth + 1);
+
+        return binariesFromOne;
+    }
+
+    operation EntryPoint(): () {
+        body {
+            let numTestQubits = 3;
+            let maxOperandB = 3;
+
+            mutable initialBinaries = new Int[][1];
+            set initialBinaries[0] = new Int[numTestQubits];
+            let allBinaries = GenerateBinaries(initialBinaries, 0);
+            Message($"{allBinaries}");
+
+            for (i in 0..Length(allBinaries) - 1) {
+                let binaryOperandA = allBinaries[i];
+                for (j in 0..maxOperandB) {
+                    let result = PerformAddition(binaryOperandA, j);
+
+                    mutable display = "";
+                    for (k in 0..Length(result) - 1) {
+                        set display = display + ToStringI(result[k]);
+                    }
+                    Message($"{binaryOperandA} + {j} => {display}");
+                }
+            }
         }
     }
 }
