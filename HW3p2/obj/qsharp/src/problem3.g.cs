@@ -8,10 +8,10 @@ using Microsoft.Quantum.MetaData.Attributes;
 [assembly: OperationDeclaration("HW3p2", "TestPrepareSuccess () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 747L, 24L, 40L)]
 [assembly: OperationDeclaration("HW3p2", "Oracle (successBinary : Int[], workQubits : Qubit[], ancillaQubit : Qubit) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 2549L, 64L, 90L)]
 [assembly: OperationDeclaration("HW3p2", "TestOracle () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 2853L, 76L, 32L)]
-[assembly: OperationDeclaration("HW3p2", "InversionAboutMean (workQubits : Qubit[]) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 4386L, 118L, 59L)]
-[assembly: OperationDeclaration("HW3p2", "GroverIteration (successBinary : Int[], workQubits : Qubit[], ancillaQubit : Qubit) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 5088L, 138L, 99L)]
-[assembly: OperationDeclaration("HW3p2", "EntryProblem3 () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 5462L, 154L, 35L)]
-[assembly: OperationDeclaration("HW3p2", "Test () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 6785L, 192L, 26L)]
+[assembly: OperationDeclaration("HW3p2", "InversionAboutMean (workQubits : Qubit[], ancillaQubit : Qubit) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 4407L, 118L, 80L)]
+[assembly: OperationDeclaration("HW3p2", "GroverIteration (successBinary : Int[], workQubits : Qubit[], ancillaQubit : Qubit) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 4745L, 126L, 99L)]
+[assembly: OperationDeclaration("HW3p2", "EntryProblem3 () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 5013L, 136L, 35L)]
+[assembly: OperationDeclaration("HW3p2", "Test () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 6199L, 170L, 26L)]
 [assembly: FunctionDeclaration("HW3p2", "GenerateAllBinariesOfLength (length : Int) : Int[][]", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs", 242L, 9L, 14L)]
 #line hidden
 namespace HW3p2
@@ -478,27 +478,36 @@ namespace HW3p2
         }
     }
 
-    public class InversionAboutMean : Operation<QArray<Qubit>, QVoid>, ICallable
+    public class InversionAboutMean : Operation<(QArray<Qubit>,Qubit), QVoid>, ICallable
     {
         public InversionAboutMean(IOperationFactory m) : base(m)
         {
         }
 
+        public class In : QTuple<(QArray<Qubit>,Qubit)>, IApplyData
+        {
+            public In((QArray<Qubit>,Qubit) data) : base(data)
+            {
+            }
+
+            System.Collections.Generic.IEnumerable<Qubit> IApplyData.Qubits => Qubit.Concat(((IApplyData)Data.Item1)?.Qubits, ((IApplyData)Data.Item2)?.Qubits);
+        }
+
         String ICallable.Name => "InversionAboutMean";
         String ICallable.FullName => "HW3p2.InversionAboutMean";
-        protected Allocate Allocate
+        protected ICallable MicrosoftQuantumCanonApplyToEach
         {
             get;
             set;
         }
 
-        protected Release Release
+        protected ICallable MicrosoftQuantumCanonMost
         {
             get;
             set;
         }
 
-        protected ICallable<QArray<Qubit>, QVoid> ResetAll
+        protected ICallable MicrosoftQuantumCanonTail
         {
             get;
             set;
@@ -516,37 +525,15 @@ namespace HW3p2
             set;
         }
 
-        public override Func<QArray<Qubit>, QVoid> Body => (__in) =>
+        public override Func<(QArray<Qubit>,Qubit), QVoid> Body => (__in) =>
         {
-            var workQubits = __in;
+            var (workQubits,ancillaQubit) = __in;
 #line 120 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            foreach (var i in new Range(0L, (workQubits.Count - 1L)))
-            {
+            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), workQubits));
 #line 121 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-                MicrosoftQuantumPrimitiveX.Apply(workQubits[i]);
-            }
-
-#line 124 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            var toggle = Allocate.Apply(1L);
-            // flips phase only if initial state was all |0>
-#line 125 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            MicrosoftQuantumPrimitiveX.Controlled.Apply((workQubits, toggle[0L]));
-#line 126 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            MicrosoftQuantumPrimitiveZ.Controlled.Apply((toggle, workQubits[0L]));
-#line 128 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            ResetAll.Apply(toggle);
-#line hidden
-            Release.Apply(toggle);
-#line 130 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            MicrosoftQuantumPrimitiveZ.Apply(workQubits[0L]);
-            // flip phase of all states
-#line 132 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            foreach (var i in new Range(0L, (workQubits.Count - 1L)))
-            {
-#line 133 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-                MicrosoftQuantumPrimitiveX.Apply(workQubits[i]);
-            }
-
+            MicrosoftQuantumPrimitiveZ.Controlled.Apply((MicrosoftQuantumCanonMost.Apply<QArray<Qubit>>(workQubits), MicrosoftQuantumCanonTail.Apply<Qubit>(workQubits)));
+#line 122 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), workQubits));
 #line hidden
             return QVoid.Instance;
         }
@@ -554,18 +541,18 @@ namespace HW3p2
         ;
         public override void Init()
         {
-            this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
-            this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
-            this.ResetAll = this.Factory.Get<ICallable<QArray<Qubit>, QVoid>>(typeof(Microsoft.Quantum.Primitive.ResetAll));
+            this.MicrosoftQuantumCanonApplyToEach = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.ApplyToEach<>));
+            this.MicrosoftQuantumCanonMost = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Most<>));
+            this.MicrosoftQuantumCanonTail = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Tail<>));
             this.MicrosoftQuantumPrimitiveX = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.X));
             this.MicrosoftQuantumPrimitiveZ = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.Z));
         }
 
-        public override IApplyData __dataIn(QArray<Qubit> data) => data;
+        public override IApplyData __dataIn((QArray<Qubit>,Qubit) data) => new In(data);
         public override IApplyData __dataOut(QVoid data) => data;
-        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, QArray<Qubit> workQubits)
+        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, QArray<Qubit> workQubits, Qubit ancillaQubit)
         {
-            return __m__.Run<InversionAboutMean, QArray<Qubit>, QVoid>(workQubits);
+            return __m__.Run<InversionAboutMean, (QArray<Qubit>,Qubit), QVoid>((workQubits, ancillaQubit));
         }
     }
 
@@ -586,13 +573,19 @@ namespace HW3p2
 
         String ICallable.Name => "GroverIteration";
         String ICallable.FullName => "HW3p2.GroverIteration";
+        protected ICallable MicrosoftQuantumCanonApplyToEach
+        {
+            get;
+            set;
+        }
+
         protected IUnitary<Qubit> MicrosoftQuantumPrimitiveH
         {
             get;
             set;
         }
 
-        protected ICallable<QArray<Qubit>, QVoid> InversionAboutMean
+        protected ICallable<(QArray<Qubit>,Qubit), QVoid> InversionAboutMean
         {
             get;
             set;
@@ -607,24 +600,14 @@ namespace HW3p2
         public override Func<(QArray<Int64>,QArray<Qubit>,Qubit), QVoid> Body => (__in) =>
         {
             var (successBinary,workQubits,ancillaQubit) = __in;
-#line 140 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 128 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             Oracle.Apply((successBinary, workQubits, ancillaQubit));
-#line 142 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            foreach (var i in new Range(0L, (workQubits.Count - 1L)))
-            {
-#line 143 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-                MicrosoftQuantumPrimitiveH.Apply(workQubits[i]);
-            }
-
-#line 146 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            InversionAboutMean.Apply(workQubits);
-#line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            foreach (var i in new Range(0L, (workQubits.Count - 1L)))
-            {
-#line 149 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-                MicrosoftQuantumPrimitiveH.Apply(workQubits[i]);
-            }
-
+#line 130 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveH), workQubits));
+#line 131 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+            InversionAboutMean.Apply((workQubits, ancillaQubit));
+#line 132 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveH), workQubits));
 #line hidden
             return QVoid.Instance;
         }
@@ -632,8 +615,9 @@ namespace HW3p2
         ;
         public override void Init()
         {
+            this.MicrosoftQuantumCanonApplyToEach = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.ApplyToEach<>));
             this.MicrosoftQuantumPrimitiveH = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.H));
-            this.InversionAboutMean = this.Factory.Get<ICallable<QArray<Qubit>, QVoid>>(typeof(HW3p2.InversionAboutMean));
+            this.InversionAboutMean = this.Factory.Get<ICallable<(QArray<Qubit>,Qubit), QVoid>>(typeof(HW3p2.InversionAboutMean));
             this.Oracle = this.Factory.Get<ICallable<(QArray<Int64>,QArray<Qubit>,Qubit), QVoid>>(typeof(HW3p2.Oracle));
         }
 
@@ -654,6 +638,12 @@ namespace HW3p2
         String ICallable.Name => "EntryProblem3";
         String ICallable.FullName => "HW3p2.EntryProblem3";
         protected Allocate Allocate
+        {
+            get;
+            set;
+        }
+
+        protected ICallable MicrosoftQuantumCanonApplyToEach
         {
             get;
             set;
@@ -703,63 +693,53 @@ namespace HW3p2
 
         public override Func<QVoid, QVoid> Body => (__in) =>
         {
-#line 156 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 138 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             var numWorkQubits = 3L;
-#line 157 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 139 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             var numIterations = 1L;
-#line 158 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 140 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             var successBinary = new QArray<Int64>(2L);
-#line 159 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 141 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             successBinary[0L] = 0L;
-#line 160 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 142 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             successBinary[1L] = 0L;
-#line 162 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 144 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             var qubits = Allocate.Apply((2L * numWorkQubits));
-#line 163 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 145 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             var workQubits = qubits?.Slice(new Range(0L, (numWorkQubits - 1L)));
-#line 164 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 146 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             var ancillaQubits = qubits?.Slice(new Range(numWorkQubits, (qubits.Count - 1L)));
-#line 166 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            foreach (var i in new Range(0L, (workQubits.Count - 1L)))
-            {
-#line 167 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-                MicrosoftQuantumPrimitiveH.Apply(workQubits[i]);
-            }
-
-#line 169 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-            foreach (var i in new Range(0L, (ancillaQubits.Count - 1L)))
-            {
-#line 170 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
-                MicrosoftQuantumPrimitiveX.Apply(ancillaQubits[i]);
-            }
-
-#line 173 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveH), workQubits));
+#line 149 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), ancillaQubits));
+#line 151 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             foreach (var i in new Range(0L, (numIterations - 1L)))
             {
-#line 174 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 152 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
                 GroverIteration.Apply((successBinary, workQubits, ancillaQubits[i]));
             }
 
-#line 177 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 155 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             foreach (var i in new Range(0L, (workQubits.Count - 1L)))
             {
-#line 178 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 156 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
                 var successResult = Result.Zero;
-#line 179 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 157 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
                 if ((successBinary[i] == 1L))
                 {
-#line 180 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 158 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
                     successResult = Result.One;
                 }
 
                 //;
-#line 183 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 161 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
                 Message.Apply($"qubit #{i}");
-#line 184 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 162 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
                 MicrosoftQuantumExtensionsTestingAssertQubit.Apply((successResult, workQubits[i]));
             }
 
-#line 187 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 165 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             ResetAll.Apply(qubits);
 #line hidden
             Release.Apply(qubits);
@@ -771,6 +751,7 @@ namespace HW3p2
         public override void Init()
         {
             this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
+            this.MicrosoftQuantumCanonApplyToEach = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.ApplyToEach<>));
             this.MicrosoftQuantumExtensionsTestingAssertQubit = this.Factory.Get<ICallable<(Result,Qubit), QVoid>>(typeof(Microsoft.Quantum.Extensions.Testing.AssertQubit));
             this.GroverIteration = this.Factory.Get<ICallable<(QArray<Int64>,QArray<Qubit>,Qubit), QVoid>>(typeof(HW3p2.GroverIteration));
             this.MicrosoftQuantumPrimitiveH = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.H));
@@ -810,9 +791,9 @@ namespace HW3p2
 
         public override Func<QVoid, QVoid> Body => (__in) =>
         {
-#line 194 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 172 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             TestPrepareSuccess.Apply(QVoid.Instance);
-#line 195 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
+#line 173 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p2/problem3.qs"
             TestOracle.Apply(QVoid.Instance);
 #line hidden
             return QVoid.Instance;

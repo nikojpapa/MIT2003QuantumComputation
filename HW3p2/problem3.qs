@@ -115,23 +115,11 @@ namespace HW3p2
         }
     }
 
-    operation InversionAboutMean(workQubits: Qubit[]): () {  // conditionally flip phase if state is anything but all |0>
+    operation InversionAboutMean(workQubits: Qubit[], ancillaQubit: Qubit): () {  // conditionally flip phase if state is anything but all |0>
         body {
-            for (i in 0..Length(workQubits) - 1) {
-                X(workQubits[i]);
-            }
-
-            using (toggle = Qubit[1]) {  // flips phase only if initial state was all |0>
-                (Controlled X)(workQubits, toggle[0]);
-                (Controlled Z)(toggle, workQubits[0]);
-
-                ResetAll(toggle);
-            }
-            Z(workQubits[0]);  // flip phase of all states
-
-            for (i in 0..Length(workQubits) - 1) {
-                X(workQubits[i]);
-            }
+            ApplyToEach(X, workQubits);
+            (Controlled Z)(Most(workQubits), Tail(workQubits));
+            ApplyToEach(X, workQubits);
         }
     }
 
@@ -139,15 +127,9 @@ namespace HW3p2
         body {
             Oracle(successBinary, workQubits, ancillaQubit);
 
-            for (i in 0..Length(workQubits) - 1) {
-                H(workQubits[i]);
-            }
-
-            InversionAboutMean(workQubits);
-
-            for (i in 0..Length(workQubits) - 1) {
-                H(workQubits[i]);
-            }
+            ApplyToEach(H, workQubits);
+            InversionAboutMean(workQubits, ancillaQubit);
+            ApplyToEach(H, workQubits);
         }
     }
 
@@ -163,12 +145,8 @@ namespace HW3p2
                 let workQubits = qubits[0..numWorkQubits-1];
                 let ancillaQubits = qubits[numWorkQubits..Length(qubits) - 1];
 
-                for (i in 0..Length(workQubits) - 1) {
-                    H(workQubits[i]);
-                }
-                for (i in 0..Length(ancillaQubits) - 1) {
-                    X(ancillaQubits[i]);
-                }
+                ApplyToEach(H, workQubits);
+                ApplyToEach(X, ancillaQubits);
 
                 for (i in 0..numIterations-1) {
                     GroverIteration(successBinary, workQubits, ancillaQubits[i]);
