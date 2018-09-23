@@ -3,22 +3,23 @@ namespace HW3p2 {
     open Microsoft.Quantum.Extensions.Testing;
     open Microsoft.Quantum.Primitive;
 
-    operation FredkinNot(control: Qubit, swap1: Qubit, swap2: Qubit): () {
+    operation FredkinNot(controlReg: Qubit[], swap1: Qubit, swap2: Qubit): () {
         body {
-            X(control);
-
-            mutable controlReg = new Qubit[1];
-            set controlReg[0] = control;
+            AssertIntEqual(Length(controlReg), 1, "Fredkin only takes one control qubit");
+            
+            X(controlReg[0]);
             (Controlled SWAP)(controlReg, (swap1, swap2));
+            X(controlReg[0]);
         }
+        
+        adjoint auto;
     }
 
     operation NControlledU(qubits: Qubit[], op: (Qubit => (): Controlled, Adjoint)) : () {
         body {
             let controlReg = Most(qubits);
-            mutable targetReg = new Qubit[1];
-            let target = Tail(qubits);
-            set targetReg[0] = target;
+            mutable targetReg = Subarray([Length(qubits)-1], qubits);
+            let target = targetReg[0];
 
             let numControlQubits = Length(controlReg);
             let halfNum = numControlQubits / 2;
@@ -27,18 +28,20 @@ namespace HW3p2 {
 
             using (workQ = Qubit[1]) {
                 for (i in 0..halfNum-1) {
-                    FredkinNot(topControl[i], bottomControl[i], workQ[0]);
+                    FredkinNot(Subarray([i], topControl), bottomControl[i], workQ[0]);
                     if (halfNum == 1) {
                         (Controlled op)(bottomControl, target);
                     } else {
                         NControlledU(bottomControl + targetReg, op);
                     }
-                    FredkinNot(topControl[i], bottomControl[i], workQ[0]);
+                    FredkinNot(Subarray([i], topControl), bottomControl[i], workQ[0]);
                 }
 
-                ResetAll(workQ);
+                // Reset(workQ[0]);
             }
         }
+
+        adjoint auto;
     }
 
     function NumIsOne(num: Int): Bool {
@@ -51,14 +54,18 @@ namespace HW3p2 {
         }
     }
 
+    operation ControlledX(qubits: Qubit[]): () {
+        body {
+            (Controlled X)(Most(qubits), Tail(qubits));
+        }
+    }
+
     operation Problem4Entry(): () {
         body {
-            let numQubits = 3;
-            // let f = NControlledU(_, X);
-            // AssertOperationsEqualInPlace(NControlledU(_, X), (Adjoint (Controlled X)), 3);
+            let numQubits = 5;
+            // AssertOperationsEqualInPlace(ControlledX, NControlledU(_, X), numQubits);
 
             let allBinaries = GenerateAllBinariesOfLength(numQubits);
-
             using (qubits = Qubit[numQubits]) {
                 for (i in 0..Length(allBinaries)-1) {
                     let thisBinary = allBinaries[i];
