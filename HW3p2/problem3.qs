@@ -115,11 +115,42 @@ namespace HW3p2
         }
     }
 
-    operation InversionAboutMean(workQubits: Qubit[], ancillaQubit: Qubit): () {  // conditionally flip phase if state is anything but all |0>
+    operation InversionAboutMean(workQubits: Qubit[]): () {  // conditionally flip phase if state is anything but all |0>
+                                                                                  // in actuality, it flips only the |0> state, which introduces a global phase of -1, which can be ignored
         body {
             ApplyToEach(X, workQubits);
             (Controlled Z)(Most(workQubits), Tail(workQubits));
             ApplyToEach(X, workQubits);
+        }
+    }
+    operation TestInversionAboutMean(): () {
+        body {
+            let allBinaries = GenerateAllBinariesOfLength(2);
+            for (i in 0..Length(allBinaries)-1) {
+                let workQubitBinary = allBinaries[i];
+                mutable allZeros = true;
+
+                using (workQubits = Qubit[Length(workQubitBinary)]) {
+                    for (j in 0..Length(workQubitBinary)-1) {
+                        if (workQubitBinary[j] == 1) {
+                            X(workQubits[j]);
+                            set allZeros = false;
+                        }
+                    }
+
+                    InversionAboutMean(workQubits);
+                    H(Tail(workQubits));
+                    if (allZeros) {
+                        AssertPhase(PI(), Tail(workQubits), 0.0000000001);
+                    } elif (Tail(workQubitBinary) == 1){
+                        AssertPhase(PI() / 2.0, Tail(workQubits), 0.0000000001);
+                    } elif (Head(workQubitBinary) == 1) {
+                        AssertPhase(0.0, Tail(workQubits), 0.0000000001);
+                    }
+
+                    ResetAll(workQubits);
+                }
+            }
         }
     }
 
@@ -128,7 +159,7 @@ namespace HW3p2
             Oracle(successBinary, workQubits, ancillaQubit);
 
             ApplyToEach(H, workQubits);
-            InversionAboutMean(workQubits, ancillaQubit);
+            InversionAboutMean(workQubits);
             ApplyToEach(H, workQubits);
         }
     }
@@ -171,6 +202,7 @@ namespace HW3p2
         body {
             TestPrepareSuccess();
             TestOracle();
+            TestInversionAboutMean();
         }
     }
 
