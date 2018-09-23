@@ -11,9 +11,12 @@ namespace HW3p2
                 // // Problem 2
                 // EntryPoint.Run(sim).Wait();
 
-                // Problem 3
-                Test.Run(sim).Wait();
-                EntryProblem3.Run(sim).Wait();
+                // // Problem 3
+                // Test.Run(sim).Wait();
+                // EntryProblem3.Run(sim).Wait();
+
+                // Problem 4
+                Problem4Entry.Run(sim).Wait();
             }
 
         }
