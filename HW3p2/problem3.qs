@@ -14,6 +14,7 @@ namespace HW3p2
 
     operation PrepareSuccess(binaryRep: Int[], qubits: Qubit[]): () {
         body {
+            AssertIntEqual(Length(binaryRep), Length(qubits), "Binary representation and qubit register must have equal length");
             for (i in 0..Length(binaryRep)-1) {
                 if (binaryRep[i] == 0) {
                     X(qubits[i]);
@@ -63,10 +64,12 @@ namespace HW3p2
 
     operation Oracle(successBinary: Int[], workQubits: Qubit[], ancillaQubit: Qubit): () {
         body {
-            AssertQubit(One, ancillaQubit);
+            AssertIntEqual(Length(successBinary), Length(workQubits), "Success binary and work qubits must have equal length");
+            AssertQubit(Zero, ancillaQubit);
 
             PrepareSuccess(successBinary, workQubits);
 
+            X(ancillaQubit);
             H(ancillaQubit);
             (Controlled Z)(workQubits, ancillaQubit);
 
@@ -97,7 +100,6 @@ namespace HW3p2
                                 set isSolution = false;
                             }
                         }
-                        X(ancillaQubit);
 
                         Oracle(successBinary, workQubits, qubits[2]);
                         H(ancillaQubit);
@@ -116,7 +118,7 @@ namespace HW3p2
     }
 
     operation InversionAboutMean(workQubits: Qubit[]): () {  // conditionally flip phase if state is anything but all |0>
-                                                                                  // in actuality, it flips only the |0> state, which introduces a global phase of -1, which can be ignored
+                                                             // in actuality, it flips only the |0> state, which introduces a global phase of -1, which can be ignored
         body {
             ApplyToEach(X, workQubits);
             (Controlled Z)(Most(workQubits), Tail(workQubits));
@@ -156,6 +158,9 @@ namespace HW3p2
 
     operation GroverIteration(successBinary: Int[], workQubits: Qubit[], ancillaQubit: Qubit): () {
         body {
+            AssertIntEqual(Length(successBinary), Length(workQubits), "Success binary and work qubits must have equal length");
+            AssertQubit(Zero, ancillaQubit);
+
             Oracle(successBinary, workQubits, ancillaQubit);
 
             ApplyToEach(H, workQubits);
@@ -166,24 +171,29 @@ namespace HW3p2
 
     operation EntryProblem3(): () {  // grover iteration succeeds 100% of the time when there are 1/4 success states of length 2
         body {
-            let numWorkQubits = 3;
+            let numWorkQubits = 2;
             let numIterations = 1;
             mutable successBinary = new Int[2];
             set successBinary[0] = 0;
             set successBinary[1] = 0;
 
-            using (qubits = Qubit[2 * numWorkQubits]) {
+            using (qubits = Qubit[numWorkQubits + numIterations]) {
                 let workQubits = qubits[0..numWorkQubits-1];
                 let ancillaQubits = qubits[numWorkQubits..Length(qubits) - 1];
 
+                let testNumWorkQubits = Length(workQubits);
+                let testNumAncillaQubits = Length(ancillaQubits);
+                Message($"num workQubits: {testNumWorkQubits}");
+                Message($"num ancilla: {testNumAncillaQubits}");
+
                 ApplyToEach(H, workQubits);
-                ApplyToEach(X, ancillaQubits);
 
                 for (i in 0..numIterations-1) {
+                    Message($"iteration {i}");
                     GroverIteration(successBinary, workQubits, ancillaQubits[i]);
                 }
 
-                for (i in 0..Length(workQubits) - 1) {
+                for (i in 0..Length(workQubits)-1) {
                     mutable successResult = Zero;
                     if (successBinary[i] == 1) {
                         set successResult = One;
