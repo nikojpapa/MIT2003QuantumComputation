@@ -8,7 +8,8 @@ namespace HW5p2
         static void Main(string[] args)
         {
             using (var sim = new QuantumSimulator()) {
-                TestAllThreeBitFlips.Run(sim).Wait();
+                // TestAllThreeBitFlips.Run(sim).Wait();
+                TestAllThreePhaseFlips.Run(sim).Wait();
             }
         }
     }
