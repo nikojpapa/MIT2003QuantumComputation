@@ -5,8 +5,8 @@ using Microsoft.Quantum.Simulation.Core;
 using Microsoft.Quantum.MetaData.Attributes;
 
 [assembly: OperationDeclaration("HW5p2", "P1Solution (code : Qubit[]) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs", 186L, 7L, 46L)]
-[assembly: OperationDeclaration("HW5p2", "TestP1Solution (errorize : (Qubit[] => ())) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs", 1283L, 42L, 5L)]
-[assembly: OperationDeclaration("HW5p2", "TestAllThreeBitFlips () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs", 1971L, 65L, 42L)]
+[assembly: OperationDeclaration("HW5p2", "TestP1Solution (errorize : (Qubit[] => ())) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs", 1295L, 42L, 5L)]
+[assembly: OperationDeclaration("HW5p2", "TestAllThreeBitFlips () : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs", 1983L, 65L, 42L)]
 #line hidden
 namespace HW5p2
 {
@@ -31,12 +31,6 @@ namespace HW5p2
         }
 
         protected ICallable<Qubit, Result> M
-        {
-            get;
-            set;
-        }
-
-        protected ICallable<String, QVoid> Message
         {
             get;
             set;
@@ -83,13 +77,12 @@ namespace HW5p2
 #line 20 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
                 if ((result2 == Result.Zero))
                 {
-#line 21 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
-                    Message.Apply("{|000>, |111>}");
+                    // Message("{|000>, |111>}");
+                    ;
                 }
                 else
                 {
-#line 23 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
-                    Message.Apply("{|001>, |110>}");
+                    // Message("{|001>, |110>}");
 #line 24 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
                     MicrosoftQuantumPrimitiveX.Apply(code[2L]);
                 }
@@ -99,15 +92,13 @@ namespace HW5p2
 #line 27 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
                 if ((result2 == Result.Zero))
                 {
-#line 28 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
-                    Message.Apply("{|100>, |011>}");
+                    // Message("{|100>, |011>}");
 #line 29 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
                     MicrosoftQuantumPrimitiveX.Apply(code[0L]);
                 }
                 else
                 {
-#line 31 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
-                    Message.Apply("{|010>, |101>}");
+                    // Message("{|010>, |101>}");
 #line 32 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW5p2/Problem1.qs"
                     MicrosoftQuantumPrimitiveX.Apply(code[1L]);
                 }
@@ -127,7 +118,6 @@ namespace HW5p2
             this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
             this.MicrosoftQuantumPrimitiveCNOT = this.Factory.Get<IUnitary<(Qubit,Qubit)>>(typeof(Microsoft.Quantum.Primitive.CNOT));
             this.M = this.Factory.Get<ICallable<Qubit, Result>>(typeof(Microsoft.Quantum.Primitive.M));
-            this.Message = this.Factory.Get<ICallable<String, QVoid>>(typeof(Microsoft.Quantum.Primitive.Message));
             this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
             this.ResetAll = this.Factory.Get<ICallable<QArray<Qubit>, QVoid>>(typeof(Microsoft.Quantum.Primitive.ResetAll));
             this.MicrosoftQuantumPrimitiveX = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.X));

@@ -18,17 +18,17 @@
 
                 if (result1 == Zero) {
                     if (result2 == Zero) {
-                        Message("{|000>, |111>}");
+                        // Message("{|000>, |111>}");
                     } else {
-                        Message("{|001>, |110>}");
+                        // Message("{|001>, |110>}");
                         X(code[2]);
                     }
                 } else {
                     if (result2 == Zero) {
-                        Message("{|100>, |011>}");
+                        // Message("{|100>, |011>}");
                         X(code[0]);
                     } else {
-                        Message("{|010>, |101>}");
+                        // Message("{|010>, |101>}");
                         X(code[1]);
                     }
                 }

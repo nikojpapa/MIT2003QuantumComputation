@@ -4,33 +4,64 @@ namespace HW5p2 {
     open Microsoft.Quantum.Extensions.Math;
     open Microsoft.Quantum.Primitive;
 
-    // operation P3Solution(code: Qubit[]) : () {
-    //     body {
-    //         ApplyToEach(H, code);
+    operation EncodeIntoBitFlipCode(
+            data : Qubit, auxillaryQubits : Qubit[]
+        ) : ()
+    {
+        body {
+            ApplyToEachCA(CNOT(data, _), auxillaryQubits);
+        }
 
-    //         let pairity1 = Measure([PauliX; PauliX; PauliI], code);
-    //         let pairity2 = Measure([PauliI; PauliX; PauliX], code);
+        adjoint auto
+        controlled auto
+        controlled adjoint auto
+    }
 
-    //         ApplyToEach(H, code);       
+    operation P2BlockSolution(code: Qubit[]) : () {
+        body {
+            ApplyToEach(H, code);
 
-    //         if (pairity1 == One && pairity2 == One) {
-    //             Z(code[1]);
-    //         } elif (pairity1 == One) {
-    //             Z(code[0]);
-    //         } elif (pairity2 == One) {
-    //             Z(code[2]);
-    //         }
-    //     }
-    // }
+            using(workQubits = Qubit[2]) {
+                for (i in 0..1) {
+                    for (j in 0..5) {
+                        CNOT(code[j + i * 3], workQubits[i]);
+                    }
+                }
+
+                let result1 = M(workQubits[0]);
+                let result2 = M(workQubits[1]);
+
+                if (result1 == Zero) {
+                    if (result2 == Zero) {
+                        Message("{|000>, |111>}");
+                    } else {
+                        Message("{|001>, |110>}");
+                        ApplyToEach(X, code[6..8]);
+                    }
+                } else {
+                    if (result2 == Zero) {
+                        Message("{|100>, |011>}");
+                        ApplyToEach(X, code[0..2]);
+                    } else {
+                        Message("{|010>, |101>}");
+                        ApplyToEach(X, code[3..5]);
+                    }
+                }
+
+                ResetAll(workQubits);
+            }
+
+            ApplyToEach(H, code);
+        }
+    }
 
     operation EncodeShorFlipCode(data: Qubit, auxillaryZQubits: Qubit[], auxillaryXQubits: Qubit[]): () {
         body {
-            ApplyToEachA(CNOT(data, _), auxillaryZQubits);
-            ApplyToEachA(H, [data] + auxillaryZQubits);
+            EncodePhaseFlipCode(data, auxillaryZQubits);
 
-            ApplyToEachA(CNOT(data, _), auxillaryXQubits[0..1]);
-            ApplyToEachA(CNOT(auxillaryZQubits[0], _), auxillaryXQubits[2..3]);
-            ApplyToEachA(CNOT(auxillaryZQubits[1], _), auxillaryXQubits[4..5]);
+            EncodeIntoBitFlipCode(data, auxillaryXQubits[0..1]);
+            EncodeIntoBitFlipCode(auxillaryZQubits[0], auxillaryXQubits[2..3]);
+            EncodeIntoBitFlipCode(auxillaryZQubits[1], auxillaryXQubits[4..5]);
         }
 
         adjoint auto;
@@ -53,7 +84,7 @@ namespace HW5p2 {
                 P1Solution([auxillaryZQubits[0]] + auxillaryXQubits[2..3]);
                 P1Solution([auxillaryZQubits[1]] + auxillaryXQubits[4..5]);
 
-                P2Solution([data] + auxillaryZQubits);
+                P2BlockSolution(register);
 
                 (Adjoint EncodeShorFlipCode)(data, auxillaryZQubits, auxillaryXQubits);
                 Assert([PauliZ], [data], Zero, "Didn't return to Zero");
@@ -74,8 +105,8 @@ namespace HW5p2 {
             for (b in 0..8) {
                 for (i in 0..3) {
                     for (j in 0..3) {
-                        mutable paulis1 = new Int[8];
-                        mutable paulis2 = new Int[8];
+                        mutable paulis1 = new Int[9];
+                        mutable paulis2 = new Int[9];
                         set paulis1[b] = i;
                         set paulis2[b] = j;
                         Message($"{paulis1}");
