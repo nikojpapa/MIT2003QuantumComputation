@@ -8,27 +8,10 @@ namespace HW5p2 {
         body {
             ApplyToEach(H, code);
 
-            let pairity1 = Measure([PauliX; PauliX; PauliI], code);
-            let pairity2 = Measure([PauliI; PauliX; PauliX], code);
+            P1Solution(code);
 
-            ApplyToEach(H, code);       
-
-            if (pairity1 == One && pairity2 == One) {
-                Z(code[1]);
-            } elif (pairity1 == One) {
-                Z(code[0]);
-            } elif (pairity2 == One) {
-                Z(code[2]);
-            }
+            ApplyToEach(H, code);
         }
-    }
-
-    function GenerateCoefficientSame(word: Double): ComplexPolar {
-        return ComplexToComplexPolar(Complex(word, 0.0));
-    }
-
-    function GenerateCoefficientOpp(word: Double): ComplexPolar {
-        return ComplexToComplexPolar(Complex(1.0 - word, 0.0));
     }
 
     operation EncodePhaseFlipCode(data: Qubit, auxillaryQubits: Qubit[]): () {  // word is either 0.0 or 1.0 corresponding to word |0> or |1>
@@ -55,11 +38,7 @@ namespace HW5p2 {
 
                 errorize(register);
 
-                ApplyToEach(H, register);
-
-                P1Solution(register);
-
-                ApplyToEach(H, register);
+                P2Solution(register);
 
                 (Adjoint EncodePhaseFlipCode)(data, auxillaryQubits);
                 Assert([PauliZ], [data], Zero, "Didn't return to Zero");
