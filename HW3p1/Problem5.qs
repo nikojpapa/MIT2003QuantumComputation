@@ -71,7 +71,7 @@
         controlled auto;
         controlled adjoint auto;
     }
-    operation TestSubtracter(length: Int, rPow: Int): () {
+    operation TestSubtractor(length: Int, rPow: Int): () {
         body {
             let rInt = 2 ^ rPow;
             let rLength = BitSize(rInt);
