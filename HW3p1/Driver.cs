@@ -8,7 +8,8 @@ namespace HW3p1
         static void Main(string[] args)
         {
             using (var sim = new QuantumSimulator()) {
-                TestSubtractor.Run(sim, 7, 2).Wait();
+                // TestSubtractor.Run(sim, 7, 2).Wait();
+                TestXIfLessThan.Run(sim, 4).Wait();
             }
         }
     }
