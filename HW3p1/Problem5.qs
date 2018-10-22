@@ -9,7 +9,9 @@
             (Controlled X)([a; b], c);
         }
 
+        adjoint auto;
         controlled auto;
+        controlled adjoint auto;
     }
 
     // operation SubtractOne(target: Qubit[], add: Qubit[], borrowIn: Qubit): () {
@@ -36,10 +38,12 @@
             // let m4 = M(borrowOut);
             // Message($"borrowOut: {m4}");
 
-            ApplyToEachC(CNOT(_, t1), [t2; borrowIn]);
+            ApplyToEachCA(CNOT(_, t1), [t2; borrowIn]);
         }
 
+        adjoint auto;
         controlled auto;
+        controlled adjoint auto;
     }
 
     operation Subtractor(start: Qubit[], amount: Qubit[], borrows: Qubit[]): () {
@@ -49,21 +53,23 @@
 
             using(padding = Qubit[1]) {
                 for (j in Length(start) - 1..-1..0) {
-                    mutable amountBit = padding[0];
-                    if (j >= Length(start) - Length(amount)) {
-                        set amountBit = amount[j - Length(start) + Length(amount)];
+                    if (j >= Length(start) - Length(amount)) {  // cannot use set to determine amount bit
+                        SubtractBit(start[j], amount[j - Length(start) + Length(amount)], borrows[j+1], borrows[j]);
+                    } else {
+                        SubtractBit(start[j], padding[0], borrows[j+1], borrows[j]);
                     }
                     // let m1 = M(start[j]);
                     // let m2 = M(amountBit);
                     // let m3 = M(borrows[j+1]);
                     // Message($"start: {m1}, amount: {m2}, borrowIn: {m3}");
-                    SubtractBit(start[j], amountBit, borrows[j+1], borrows[j]);
                 }
             }
 
         }
         
+        adjoint auto;
         controlled auto;
+        controlled adjoint auto;
     }
     operation TestSubtracter(length: Int, rPow: Int): () {
         body {
