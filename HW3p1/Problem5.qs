@@ -9,7 +9,7 @@
             (Controlled X)([a; b], c);
         }
 
-        // controlled auto;
+        controlled auto;
     }
 
     // operation SubtractOne(target: Qubit[], add: Qubit[], borrowIn: Qubit): () {
@@ -36,29 +36,40 @@
             // let m4 = M(borrowOut);
             // Message($"borrowOut: {m4}");
 
-            ApplyToEach(CNOT(_, t1), [t2; borrowIn]);
+            ApplyToEachC(CNOT(_, t1), [t2; borrowIn]);
         }
+
+        controlled auto;
     }
 
     operation Subtractor(start: Qubit[], amount: Qubit[], borrows: Qubit[]): () {
         body {
-            AssertBoolEqual(Length(start) == Length(amount), true, $"unequal operand lengths");
-            AssertIntEqual(Length(amount) + 1, Length(borrows), $"not right amount of borrows");
+            AssertBoolEqual(Length(start) >= Length(amount), true, $"unequal operand lengths");
+            AssertIntEqual(Length(start) + 1, Length(borrows), $"not right amount of borrows");
 
-            for (j in Length(amount) - 1..-1..0) {
-                // let m1 = M(start[j]);
-                // let m2 = M(amount[j]);
-                // let m3 = M(borrows[j+1]);
-                // Message($"start: {m1}, amount: {m2}, borrowIn: {m3}");
-                SubtractBit(start[j], amount[j], borrows[j+1], borrows[j]);
+            using(padding = Qubit[1]) {
+                for (j in Length(start) - 1..-1..0) {
+                    mutable amountBit = padding[0];
+                    if (j >= Length(start) - Length(amount)) {
+                        set amountBit = amount[j - Length(start) + Length(amount)];
+                    }
+                    // let m1 = M(start[j]);
+                    // let m2 = M(amountBit);
+                    // let m3 = M(borrows[j+1]);
+                    // Message($"start: {m1}, amount: {m2}, borrowIn: {m3}");
+                    SubtractBit(start[j], amountBit, borrows[j+1], borrows[j]);
+                }
             }
+
         }
+        
+        controlled auto;
     }
     operation TestSubtracter(length: Int, rPow: Int): () {
         body {
             let rInt = 2 ^ rPow;
             let rLength = BitSize(rInt);
-            let rLastIndex = length - 1;
+            let rLastIndex = rLength - 1;
             let regLastIndex = rLastIndex + length;
             let borrowsLastIndex = regLastIndex + length + 1;
 
@@ -71,7 +82,7 @@
                     let register = qubits[rLastIndex + 1..regLastIndex];
                     let borrows = qubits[regLastIndex + 1..borrowsLastIndex];
                     SetQubits(register, binary);
-                    X(r[length - rLength]);
+                    X(Head(r));
 
                     if (QubitsToInt(register) >= rInt) {
                         Subtractor(register, r, borrows);
