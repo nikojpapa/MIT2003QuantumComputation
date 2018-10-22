@@ -84,20 +84,30 @@
         }
     }
 
-    operation XIfLessThan(a: Qubit[], b: Qubit[], target: Qubit): () {
+    operation XIfLessThanOrEqual(a: Qubit[], b: Qubit[], target: Qubit): () {
         body {
-            using(borrows = Qubit[Length(a) + 1]) {
+            using(qubits = Qubit[Length(a) + 2]) {
+                let borrows = Most(qubits);
+                let zeroTest = Tail(qubits);
                 Subtractor(a, b, borrows);
 
+                ApplyToEach(X, a);
+                (Controlled X)(a, zeroTest);
+                ApplyToEach(X, a);
+
                 let indicator = Head(borrows);
-                CNOT(indicator, target);
+                QubitOr(indicator, zeroTest, target);
+
+                ApplyToEach(X, a);
+                (Controlled X)(a, zeroTest);
+                ApplyToEach(X, a);
 
                 (Adjoint Subtractor)(a, b, borrows);
             }
         }
     }
 
-    operation TestXIfLessThan(length: Int): () {
+    operation TestXIfLessThanOrEqual(length: Int): () {
         body {
             let binaries = GenerateAllBinariesOfLength(length);
 
@@ -113,12 +123,12 @@
                         SetQubits(a, binaryA);
                         SetQubits(b, binaryB);
 
-                        XIfLessThan(a, b, target);
+                        XIfLessThanOrEqual(a, b, target);
 
                         let mt = M(target);
-                        let lessThan = i < j;
-                        Message($"{i} < {j}: {lessThan}; result: {mt}");
-                        AssertResultEqual(M(target), ResultFromBool(i < j), "Incorrect");
+                        let isLessThanOrEqual = i <= j;
+                        Message($"{i} <= {j}: {isLessThanOrEqual}; result: {mt}");
+                        AssertResultEqual(M(target), ResultFromBool(isLessThanOrEqual), "Incorrect");
 
                         ResetAll(qubits);
                     }
