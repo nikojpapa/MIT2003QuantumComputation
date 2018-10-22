@@ -24,7 +24,7 @@
     //     }
     // }
 
-    operation Subtractor(t1: Qubit, t2: Qubit, borrowIn: Qubit, borrowOut: Qubit): () {
+    operation SubtractBit(t1: Qubit, t2: Qubit, borrowIn: Qubit, borrowOut: Qubit): () {
         body {
             Assert([PauliZ], [borrowOut], Zero, "Carry out is not in |0> state");
 
@@ -33,37 +33,48 @@
             Toffoli(t1, borrowIn, borrowOut);
             Toffoli(t2, borrowIn, borrowOut);
             X(t1);
-            let m4 = M(borrowOut);
-            Message($"bO: {m4}");
+            // let m4 = M(borrowOut);
+            // Message($"borrowOut: {m4}");
 
             ApplyToEach(CNOT(_, t1), [t2; borrowIn]);
         }
     }
-    operation TestSubtracter(): () {
-        body {
-            let rPow = 2;
-            let rInt = 2 ^ rPow;
 
-            using(qubits = Qubit[22]) {
+    operation Subtractor(start: Qubit[], amount: Qubit[], borrows: Qubit[]): () {
+        body {
+            AssertBoolEqual(Length(start) == Length(amount), true, $"unequal operand lengths");
+            AssertIntEqual(Length(amount) + 1, Length(borrows), $"not right amount of borrows");
+
+            for (j in Length(amount) - 1..-1..0) {
+                // let m1 = M(start[j]);
+                // let m2 = M(amount[j]);
+                // let m3 = M(borrows[j+1]);
+                // Message($"start: {m1}, amount: {m2}, borrowIn: {m3}");
+                SubtractBit(start[j], amount[j], borrows[j+1], borrows[j]);
+            }
+        }
+    }
+    operation TestSubtracter(length: Int, rPow: Int): () {
+        body {
+            let rInt = 2 ^ rPow;
+            let rLength = BitSize(rInt);
+            let rLastIndex = length - 1;
+            let regLastIndex = rLastIndex + length;
+            let borrowsLastIndex = regLastIndex + length + 1;
+
+            using(qubits = Qubit[borrowsLastIndex + 1]) {
                 let binaries = GenerateAllBinariesOfLength(7);
-                for (i in 0..Length(binaries)-1) {
+                for (i in 0..Length(binaries) - 1) {
                     Message($"start: {i}:");
                     let binary = binaries[i];
-                    let r = qubits[0..6];
-                    let register = qubits[7..13];
-                    let carries = qubits[14..21];
+                    let r = qubits[0..rLastIndex];
+                    let register = qubits[rLastIndex + 1..regLastIndex];
+                    let borrows = qubits[regLastIndex + 1..borrowsLastIndex];
                     SetQubits(register, binary);
-                    X(r[BitSize(rInt) + 1]);
-
+                    X(r[length - rLength]);
 
                     if (QubitsToInt(register) >= rInt) {
-                        for (j in Length(binary)-1..-1..0) {
-                            let m1 = M(register[j]);
-                            let m2 = M(r[j]);
-                            let m3 = M(carries[j]);
-                            Message($"reg: {m1}, r: {m2}, bI: {m3}");
-                            Subtractor(register[j], r[j], carries[j+1], carries[j]);
-                        }
+                        Subtractor(register, r, borrows);
 
                         let trueAnswer = i - rInt;
                         let answer = QubitsToInt(register);
