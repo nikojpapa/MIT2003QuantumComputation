@@ -9,8 +9,9 @@ namespace HW3p1
         {
             using (var sim = new QuantumSimulator()) {
                 // TestSubtractor.Run(sim, 7, 2).Wait();
+                _TestQFTSubtractor.Run(sim, 7, 4).Wait(-1);
                 // TestXIfLessThanOrEqual.Run(sim, 4).Wait();
-                TestPeriodicFunction.Run(sim, 3).Wait(-1);
+                // TestPeriodicFunction.Run(sim, 3).Wait(-1);
                 // VerifyProblem5.Run(sim, 8, 2).Wait(-1);
             }
         }
