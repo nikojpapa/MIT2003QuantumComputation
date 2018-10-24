@@ -141,14 +141,14 @@
         }
     }
 
-    operation SubtractIfPossible(a: Qubit[], b: Qubit[], borrows: Qubit[], toggle: Qubit): () {
+    operation SubtractIfPossible(a: Qubit[], b: Qubit[], borrows: Qubit[], ancilla: Qubit): () {
         body {
             Subtractor(a, b, borrows);
 
             let indicator = Head(borrows);
-            CNOT(indicator, toggle);
+            CNOT(indicator, ancilla);
 
-            (Controlled (Adjoint Subtractor))([toggle], (a, b, borrows));
+            (Controlled (Adjoint Subtractor))([ancilla], (a, b, borrows));
         }
 
         adjoint auto;
@@ -156,53 +156,44 @@
         controlled adjoint auto;
     }
 
-    operation PeriodicFunction(x: Qubit[], period: Qubit[], target: Qubit, maxDivisions: Int): () {
+    operation PeriodicFunction(x: Qubit[], period: Qubit[], target: Qubit, maxDivisions: Int, depth: Int): () {
         body {
-            let numBorrows = (Length(x) + 2);
-            let lastIndex = numBorrows * maxDivisions - 1;
-            using(qubits = Qubit[lastIndex + 1]) {
-                for (i in 0..maxDivisions - 1) {
-                    // Message($"{i * numBorrows} - {(i + 1) * numBorrows - 1}");
-                    let theseQubits = qubits[i * numBorrows..(i + 1) * numBorrows - 1];
-                    let borrows = Most(theseQubits);
-                    let toggle = Tail(theseQubits);
+            if (depth > maxDivisions) {
+                ApplyToEachCA(X, x);
+                (Controlled X)(x, target);
+                ApplyToEachCA(X, x);
+            } else {
+                using(qubits = Qubit[Length(x) + 2]) {
+                    let borrows = Most(qubits);
+                    let ancilla = Tail(qubits);
 
-                    SubtractIfPossible(x, period, borrows, toggle);
+                    SubtractIfPossible(x, period, borrows, ancilla);
 
-                    if (i == maxDivisions - 1) {
-                        ApplyToEach(X, x);
-                        (Controlled X)(x, target);
-                        ApplyToEach(X, x);
-                    }
+                    PeriodicFunction(x, period, target, maxDivisions, depth + 1);
+
+                    (Adjoint SubtractIfPossible)(x, period, borrows, ancilla);
                 }
-
-                for (i in 0..maxDivisions - 1) {
-                    // Message($"{lastIndex - (i + 1) * numBorrows + 1} - {lastIndex - i * numBorrows}");
-                    let theseQubits = qubits[lastIndex - (i + 1) * numBorrows + 1..lastIndex - i * numBorrows];
-                    let borrows = Most(theseQubits);
-                    let toggle = Tail(theseQubits);
-
-                    (Adjoint SubtractIfPossible)(x, period, borrows, toggle);
-                }
-
-                PrintRegister(qubits);
             }
         }
+
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
     }
 
     operation _TestPeriodicFunctionImpl(a: Qubit[], b: Qubit[]): () {
         body {
             let aVal = QubitsToInt(a);
             let bVal = QubitsToInt(b);
-            if (aVal > 0 && bVal > 0 && aVal >= bVal) {
+            if (aVal > 0 && bVal > 0) {
                 let maxDivisions = aVal / bVal;
 
                 using(qubits = Qubit[1]) {
                     let target = qubits[0];
-                    PeriodicFunction(a, b, target, maxDivisions);
+                    PeriodicFunction(a, b, target, maxDivisions, 0);
 
                     let result = M(target);
-                    let divides = aVal % bVal == 0;
+                    let divides = aVal >= bVal && aVal % bVal == 0;
                     let resultFromBool = ResultFromBool(divides);
                     Message($"{bVal} | {aVal}: {divides}({resultFromBool}); result: {result}");
                     AssertResultEqual(result, resultFromBool, "Incorrect");
@@ -235,7 +226,7 @@
 
                     ApplyToEach(H, firstReg);
                     Message($"Periodic");
-                    PeriodicFunction(firstReg, rReg, secondReg, 4);
+                    PeriodicFunction(firstReg, rReg, secondReg, 4, 0);
                     Message($"Inverse QFT");
                     (Adjoint QFT)(BigEndian(firstReg));
                     Message($"Measure");
