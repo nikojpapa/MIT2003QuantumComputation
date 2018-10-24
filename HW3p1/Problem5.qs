@@ -219,17 +219,40 @@
         }
     }
 
-    // operation VerifyProblem5 (t: Int, r: Int) : ()
-    // {
-    //     body
-    //     {
-    //         using(qubits: Qubit[t + 1]) {
-    //             let firstReg = Most(qubits);
-    //             let secondReg = Tail(qubits);
+    operation VerifyProblem5 (t: Int, r: Int) : ()
+    {
+        body
+        {
+            mutable attempts = 0;
+            mutable success = 0;
+            using(qubits = Qubit[t + 4]) {
+                for (i in 0..10) {
+                    Message($"{i}");
+                    let rReg = qubits[t..t + 2];
+                    X(Head(rReg));
+                    let firstReg = qubits[0..t-1];
+                    let secondReg = Tail(qubits);
 
-    //             ApplyToEach(H, firstReg);
-    //             ApplyToEach(PeriodicFunction(_, ))
-    //         }
-    //     }
-    // }
+                    ApplyToEach(H, firstReg);
+                    Message($"Periodic");
+                    PeriodicFunction(firstReg, rReg, secondReg, 4);
+                    Message($"Inverse QFT");
+                    (Adjoint QFT)(BigEndian(firstReg));
+                    Message($"Measure");
+                    let l = MeasureIntegerBE(BigEndian(firstReg));
+                    Message($"Continued Fractions");
+                    let (s, foundR) = ContinuedFractionConvergent(Fraction(l, 2 ^ t), 10);
+                    
+                    let thisSuccess = foundR == r;
+                    set attempts = attempts + 1;
+                    if (thisSuccess) {
+                        set success = success + 1;
+                    }
+                    Message(ToStringI(foundR));
+                    ResetAll(qubits);
+                }
+            }
+            Message($"Success Rate: {success * 1.0 / attempts}");
+        }
+    }
 }
