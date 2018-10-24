@@ -5,10 +5,14 @@ using Microsoft.Quantum.Simulation.Core;
 using Microsoft.Quantum.MetaData.Attributes;
 
 [assembly: OperationDeclaration("HW3p1", "_SubtractBit (t1 : Qubit, t2 : Qubit, borrowIn : Qubit, borrowOut : Qubit) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 249L, 8L, 89L)]
-[assembly: OperationDeclaration("HW3p1", "Subtractor (start : Qubit[], amount : Qubit[], borrows : Qubit[]) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 856L, 28L, 81L)]
-[assembly: OperationDeclaration("HW3p1", "TestSubtractor (length : Int, rPow : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 1959L, 53L, 58L)]
-[assembly: OperationDeclaration("HW3p1", "XIfLessThanOrEqual (a : Qubit[], b : Qubit[], target : Qubit) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 3353L, 87L, 77L)]
-[assembly: OperationDeclaration("HW3p1", "TestXIfLessThanOrEqual (length : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 4049L, 110L, 55L)]
+[assembly: OperationDeclaration("HW3p1", "Subtractor (start : Qubit[], amount : Qubit[], borrows : Qubit[]) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 857L, 28L, 81L)]
+[assembly: OperationDeclaration("HW3p1", "TestSubtractor (length : Int, rPow : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 1960L, 53L, 58L)]
+[assembly: OperationDeclaration("HW3p1", "XIfLessThanOrEqual (a : Qubit[], b : Qubit[], target : Qubit) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 3354L, 87L, 77L)]
+[assembly: OperationDeclaration("HW3p1", "TestXIfLessThanOrEqual (length : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 4143L, 114L, 55L)]
+[assembly: OperationDeclaration("HW3p1", "SubtractIfPossible (a : Qubit[], b : Qubit[], borrows : Qubit[], toggle : Qubit) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 5360L, 144L, 95L)]
+[assembly: OperationDeclaration("HW3p1", "PeriodicFunction (x : Qubit[], period : Qubit[], target : Qubit, maxDivisions : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 5783L, 159L, 99L)]
+[assembly: OperationDeclaration("HW3p1", "_TestPeriodicFunctionImpl (a : Qubit[], b : Qubit[]) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 7219L, 193L, 69L)]
+[assembly: OperationDeclaration("HW3p1", "TestPeriodicFunction (length : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs", 8067L, 216L, 53L)]
 #line hidden
 namespace HW3p1
 {
@@ -74,7 +78,7 @@ namespace HW3p1
 #line 10 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             Assert.Apply((new QArray<Pauli>()
             {Pauli.PauliZ}, new QArray<Qubit>()
-            {borrowOut}, Result.Zero, "Carry out is not in |0> state"));
+            {borrowOut}, Result.Zero, "Borrow out is not in |0> state"));
 #line 12 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             MicrosoftQuantumPrimitiveX.Apply(t1);
 #line 13 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
@@ -107,7 +111,7 @@ namespace HW3p1
             MicrosoftQuantumPrimitiveX.Adjoint.Apply(t1);
             Assert.Adjoint.Apply((new QArray<Pauli>()
             {Pauli.PauliZ}, new QArray<Qubit>()
-            {borrowOut}, Result.Zero, "Carry out is not in |0> state"));
+            {borrowOut}, Result.Zero, "Borrow out is not in |0> state"));
 #line hidden
             return QVoid.Instance;
         }
@@ -118,7 +122,7 @@ namespace HW3p1
             var (controlQubits,(t1,t2,borrowIn,borrowOut)) = __in;
             Assert.Controlled.Apply((controlQubits, (new QArray<Pauli>()
             {Pauli.PauliZ}, new QArray<Qubit>()
-            {borrowOut}, Result.Zero, "Carry out is not in |0> state")));
+            {borrowOut}, Result.Zero, "Borrow out is not in |0> state")));
             MicrosoftQuantumPrimitiveX.Controlled.Apply((controlQubits, t1));
             UtilsToffoli.Controlled.Apply((controlQubits, (t1, t2, borrowOut)));
             UtilsToffoli.Controlled.Apply((controlQubits, (t1, borrowIn, borrowOut)));
@@ -145,7 +149,7 @@ namespace HW3p1
             MicrosoftQuantumPrimitiveX.Adjoint.Controlled.Apply((controlQubits, t1));
             Assert.Adjoint.Controlled.Apply((controlQubits, (new QArray<Pauli>()
             {Pauli.PauliZ}, new QArray<Qubit>()
-            {borrowOut}, Result.Zero, "Carry out is not in |0> state")));
+            {borrowOut}, Result.Zero, "Borrow out is not in |0> state")));
 #line hidden
             return QVoid.Instance;
         }
@@ -536,7 +540,7 @@ namespace HW3p1
         }
     }
 
-    public class XIfLessThanOrEqual : Operation<(QArray<Qubit>,QArray<Qubit>,Qubit), QVoid>, ICallable
+    public class XIfLessThanOrEqual : Unitary<(QArray<Qubit>,QArray<Qubit>,Qubit)>, ICallable
     {
         public XIfLessThanOrEqual(IOperationFactory m) : base(m)
         {
@@ -559,7 +563,7 @@ namespace HW3p1
             set;
         }
 
-        protected ICallable MicrosoftQuantumCanonApplyToEach
+        protected IUnitary MicrosoftQuantumCanonApplyToEachCA
         {
             get;
             set;
@@ -577,7 +581,7 @@ namespace HW3p1
             set;
         }
 
-        protected ICallable<(Qubit,Qubit,Qubit), QVoid> UtilsQubitOr
+        protected IUnitary<(Qubit,Qubit,Qubit)> UtilsQubitOr
         {
             get;
             set;
@@ -619,23 +623,95 @@ namespace HW3p1
 #line 92 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             Subtractor.Apply((a, b, borrows));
 #line 94 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), a));
+            MicrosoftQuantumCanonApplyToEachCA.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
 #line 95 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             MicrosoftQuantumPrimitiveX.Controlled.Apply((a, zeroTest));
 #line 96 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), a));
+            MicrosoftQuantumCanonApplyToEachCA.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
 #line 98 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
 #line 99 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             UtilsQubitOr.Apply((indicator, zeroTest, target));
 #line 101 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), a));
+            MicrosoftQuantumCanonApplyToEachCA.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
 #line 102 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             MicrosoftQuantumPrimitiveX.Controlled.Apply((a, zeroTest));
 #line 103 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-            MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), a));
+            MicrosoftQuantumCanonApplyToEachCA.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
 #line 105 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             Subtractor.Adjoint.Apply((a, b, borrows));
+#line hidden
+            Release.Apply(qubits);
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,QArray<Qubit>,Qubit), QVoid> AdjointBody => (__in) =>
+        {
+            var (a,b,target) = __in;
+            var qubits = Allocate.Apply((a.Count + 2L));
+#line 90 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var borrows = MicrosoftQuantumCanonMost.Apply<QArray<Qubit>>(qubits);
+#line 91 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var zeroTest = MicrosoftQuantumCanonTail.Apply<Qubit>(qubits);
+#line 98 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+            Subtractor.Adjoint.Adjoint.Apply((a, b, borrows));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
+            MicrosoftQuantumPrimitiveX.Controlled.Adjoint.Apply((a, zeroTest));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
+            UtilsQubitOr.Adjoint.Apply((indicator, zeroTest, target));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
+            MicrosoftQuantumPrimitiveX.Controlled.Adjoint.Apply((a, zeroTest));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Apply((((IUnitary)MicrosoftQuantumPrimitiveX), a));
+            Subtractor.Adjoint.Apply((a, b, borrows));
+#line hidden
+            Release.Apply(qubits);
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,(QArray<Qubit>,QArray<Qubit>,Qubit)), QVoid> ControlledBody => (__in) =>
+        {
+            var (controlQubits,(a,b,target)) = __in;
+            var qubits = Allocate.Apply((a.Count + 2L));
+            var borrows = MicrosoftQuantumCanonMost.Apply<QArray<Qubit>>(qubits);
+            var zeroTest = MicrosoftQuantumCanonTail.Apply<Qubit>(qubits);
+            Subtractor.Controlled.Apply((controlQubits, (a, b, borrows)));
+            MicrosoftQuantumCanonApplyToEachCA.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            MicrosoftQuantumPrimitiveX.Controlled.Controlled.Apply((controlQubits, (a, zeroTest)));
+            MicrosoftQuantumCanonApplyToEachCA.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+            UtilsQubitOr.Controlled.Apply((controlQubits, (indicator, zeroTest, target)));
+            MicrosoftQuantumCanonApplyToEachCA.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            MicrosoftQuantumPrimitiveX.Controlled.Controlled.Apply((controlQubits, (a, zeroTest)));
+            MicrosoftQuantumCanonApplyToEachCA.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            Subtractor.Adjoint.Controlled.Apply((controlQubits, (a, b, borrows)));
+#line hidden
+            Release.Apply(qubits);
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,(QArray<Qubit>,QArray<Qubit>,Qubit)), QVoid> ControlledAdjointBody => (__in) =>
+        {
+            var (controlQubits,(a,b,target)) = __in;
+            var qubits = Allocate.Apply((a.Count + 2L));
+            var borrows = MicrosoftQuantumCanonMost.Apply<QArray<Qubit>>(qubits);
+            var zeroTest = MicrosoftQuantumCanonTail.Apply<Qubit>(qubits);
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+            Subtractor.Adjoint.Adjoint.Controlled.Apply((controlQubits, (a, b, borrows)));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            MicrosoftQuantumPrimitiveX.Controlled.Adjoint.Controlled.Apply((controlQubits, (a, zeroTest)));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            UtilsQubitOr.Adjoint.Controlled.Apply((controlQubits, (indicator, zeroTest, target)));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            MicrosoftQuantumPrimitiveX.Controlled.Adjoint.Controlled.Apply((controlQubits, (a, zeroTest)));
+            MicrosoftQuantumCanonApplyToEachCA.Adjoint.Controlled.Apply((controlQubits, (((IUnitary)MicrosoftQuantumPrimitiveX), a)));
+            Subtractor.Adjoint.Controlled.Apply((controlQubits, (a, b, borrows)));
 #line hidden
             Release.Apply(qubits);
 #line hidden
@@ -646,10 +722,10 @@ namespace HW3p1
         public override void Init()
         {
             this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
-            this.MicrosoftQuantumCanonApplyToEach = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.ApplyToEach<>));
+            this.MicrosoftQuantumCanonApplyToEachCA = this.Factory.Get<IUnitary>(typeof(Microsoft.Quantum.Canon.ApplyToEachCA<>));
             this.MicrosoftQuantumCanonHead = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Head<>));
             this.MicrosoftQuantumCanonMost = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Most<>));
-            this.UtilsQubitOr = this.Factory.Get<ICallable<(Qubit,Qubit,Qubit), QVoid>>(typeof(Utils.QubitOr));
+            this.UtilsQubitOr = this.Factory.Get<IUnitary<(Qubit,Qubit,Qubit)>>(typeof(Utils.QubitOr));
             this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
             this.Subtractor = this.Factory.Get<IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)>>(typeof(HW3p1.Subtractor));
             this.MicrosoftQuantumCanonTail = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Tail<>));
@@ -732,7 +808,7 @@ namespace HW3p1
             set;
         }
 
-        protected ICallable<(QArray<Qubit>,QArray<Qubit>,Qubit), QVoid> XIfLessThanOrEqual
+        protected IUnitary<(QArray<Qubit>,QArray<Qubit>,Qubit)> XIfLessThanOrEqual
         {
             get;
             set;
@@ -741,41 +817,41 @@ namespace HW3p1
         public override Func<Int64, QVoid> Body => (__in) =>
         {
             var length = __in;
-#line 112 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+#line 116 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             var binaries = UtilsGenerateAllBinariesOfLength.Apply(length);
-#line 114 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+#line 118 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             var qubits = Allocate.Apply(((length * 2L) + 1L));
-#line 115 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+#line 119 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
             foreach (var i in new Range(0L, (binaries.Count - 1L)))
             {
-#line 116 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+#line 120 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
                 foreach (var j in new Range(0L, (binaries.Count - 1L)))
                 {
-#line 117 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var binaryA = binaries[i];
-#line 118 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var binaryB = binaries[j];
-#line 119 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var a = qubits?.Slice(new Range(0L, (length - 1L)));
-#line 120 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var b = qubits?.Slice(new Range(length, ((length * 2L) - 1L)));
 #line 121 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var target = MicrosoftQuantumCanonTail.Apply<Qubit>(qubits);
+                    var binaryA = binaries[i];
+#line 122 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    var binaryB = binaries[j];
 #line 123 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    UtilsSetQubits.Apply((a, binaryA));
+                    var a = qubits?.Slice(new Range(0L, (length - 1L)));
 #line 124 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    UtilsSetQubits.Apply((b, binaryB));
-#line 126 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    XIfLessThanOrEqual.Apply((a, b, target));
+                    var b = qubits?.Slice(new Range(length, ((length * 2L) - 1L)));
+#line 125 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    var target = MicrosoftQuantumCanonTail.Apply<Qubit>(qubits);
+#line 127 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    UtilsSetQubits.Apply((a, binaryA));
 #line 128 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var mt = M.Apply(target);
-#line 129 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    var isLessThanOrEqual = (i <= j);
+                    UtilsSetQubits.Apply((b, binaryB));
 #line 130 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    Message.Apply($"{i} < {j}: {isLessThanOrEqual}; result: {mt}");
-#line 131 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
-                    MicrosoftQuantumCanonAssertResultEqual.Apply((M.Apply(target), MicrosoftQuantumCanonResultFromBool.Apply(isLessThanOrEqual), "Incorrect"));
+                    XIfLessThanOrEqual.Apply((a, b, target));
+#line 132 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    var mt = M.Apply(target);
 #line 133 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    var isLessThanOrEqual = (i <= j);
+#line 134 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    Message.Apply($"{i} <= {j}: {isLessThanOrEqual}; result: {mt}");
+#line 135 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    MicrosoftQuantumCanonAssertResultEqual.Apply((M.Apply(target), MicrosoftQuantumCanonResultFromBool.Apply(isLessThanOrEqual), "Incorrect"));
+#line 137 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
                     ResetAll.Apply(qubits);
                 }
             }
@@ -799,7 +875,7 @@ namespace HW3p1
             this.MicrosoftQuantumCanonResultFromBool = this.Factory.Get<ICallable<Boolean, Result>>(typeof(Microsoft.Quantum.Canon.ResultFromBool));
             this.UtilsSetQubits = this.Factory.Get<ICallable<(QArray<Qubit>,QArray<Int64>), QVoid>>(typeof(Utils.SetQubits));
             this.MicrosoftQuantumCanonTail = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Tail<>));
-            this.XIfLessThanOrEqual = this.Factory.Get<ICallable<(QArray<Qubit>,QArray<Qubit>,Qubit), QVoid>>(typeof(HW3p1.XIfLessThanOrEqual));
+            this.XIfLessThanOrEqual = this.Factory.Get<IUnitary<(QArray<Qubit>,QArray<Qubit>,Qubit)>>(typeof(HW3p1.XIfLessThanOrEqual));
         }
 
         public override IApplyData __dataIn(Int64 data) => new QTuple<Int64>(data);
@@ -807,6 +883,429 @@ namespace HW3p1
         public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, Int64 length)
         {
             return __m__.Run<TestXIfLessThanOrEqual, Int64, QVoid>(length);
+        }
+    }
+
+    public class SubtractIfPossible : Unitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit)>, ICallable
+    {
+        public SubtractIfPossible(IOperationFactory m) : base(m)
+        {
+        }
+
+        public class In : QTuple<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit)>, IApplyData
+        {
+            public In((QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit) data) : base(data)
+            {
+            }
+
+            System.Collections.Generic.IEnumerable<Qubit> IApplyData.Qubits => Qubit.Concat(((IApplyData)Data.Item1)?.Qubits, ((IApplyData)Data.Item2)?.Qubits, ((IApplyData)Data.Item3)?.Qubits, ((IApplyData)Data.Item4)?.Qubits);
+        }
+
+        String ICallable.Name => "SubtractIfPossible";
+        String ICallable.FullName => "HW3p1.SubtractIfPossible";
+        protected IUnitary<(Qubit,Qubit)> MicrosoftQuantumPrimitiveCNOT
+        {
+            get;
+            set;
+        }
+
+        protected ICallable MicrosoftQuantumCanonHead
+        {
+            get;
+            set;
+        }
+
+        protected IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)> Subtractor
+        {
+            get;
+            set;
+        }
+
+        public override Func<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit), QVoid> Body => (__in) =>
+        {
+            var (a,b,borrows,toggle) = __in;
+#line 146 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            Subtractor.Apply((a, b, borrows));
+#line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+#line 149 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            MicrosoftQuantumPrimitiveCNOT.Apply((indicator, toggle));
+#line 151 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            Subtractor.Adjoint.Controlled.Apply((new QArray<Qubit>()
+            {toggle}, (a, b, borrows)));
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit), QVoid> AdjointBody => (__in) =>
+        {
+            var (a,b,borrows,toggle) = __in;
+#line 148 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+            Subtractor.Adjoint.Controlled.Adjoint.Apply((new QArray<Qubit>()
+            {toggle}, (a, b, borrows)));
+            MicrosoftQuantumPrimitiveCNOT.Adjoint.Apply((indicator, toggle));
+            Subtractor.Adjoint.Apply((a, b, borrows));
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit)), QVoid> ControlledBody => (__in) =>
+        {
+            var (controlQubits,(a,b,borrows,toggle)) = __in;
+            Subtractor.Controlled.Apply((controlQubits, (a, b, borrows)));
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+            MicrosoftQuantumPrimitiveCNOT.Controlled.Apply((controlQubits, (indicator, toggle)));
+            Subtractor.Adjoint.Controlled.Controlled.Apply((controlQubits, (new QArray<Qubit>()
+            {toggle}, (a, b, borrows))));
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit)), QVoid> ControlledAdjointBody => (__in) =>
+        {
+            var (controlQubits,(a,b,borrows,toggle)) = __in;
+            var indicator = MicrosoftQuantumCanonHead.Apply<Qubit>(borrows);
+            Subtractor.Adjoint.Controlled.Adjoint.Controlled.Apply((controlQubits, (new QArray<Qubit>()
+            {toggle}, (a, b, borrows))));
+            MicrosoftQuantumPrimitiveCNOT.Adjoint.Controlled.Apply((controlQubits, (indicator, toggle)));
+            Subtractor.Adjoint.Controlled.Apply((controlQubits, (a, b, borrows)));
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override void Init()
+        {
+            this.MicrosoftQuantumPrimitiveCNOT = this.Factory.Get<IUnitary<(Qubit,Qubit)>>(typeof(Microsoft.Quantum.Primitive.CNOT));
+            this.MicrosoftQuantumCanonHead = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Head<>));
+            this.Subtractor = this.Factory.Get<IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)>>(typeof(HW3p1.Subtractor));
+        }
+
+        public override IApplyData __dataIn((QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit) data) => new In(data);
+        public override IApplyData __dataOut(QVoid data) => data;
+        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, QArray<Qubit> a, QArray<Qubit> b, QArray<Qubit> borrows, Qubit toggle)
+        {
+            return __m__.Run<SubtractIfPossible, (QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit), QVoid>((a, b, borrows, toggle));
+        }
+    }
+
+    public class PeriodicFunction : Operation<(QArray<Qubit>,QArray<Qubit>,Qubit,Int64), QVoid>, ICallable
+    {
+        public PeriodicFunction(IOperationFactory m) : base(m)
+        {
+        }
+
+        public class In : QTuple<(QArray<Qubit>,QArray<Qubit>,Qubit,Int64)>, IApplyData
+        {
+            public In((QArray<Qubit>,QArray<Qubit>,Qubit,Int64) data) : base(data)
+            {
+            }
+
+            System.Collections.Generic.IEnumerable<Qubit> IApplyData.Qubits => Qubit.Concat(((IApplyData)Data.Item1)?.Qubits, ((IApplyData)Data.Item2)?.Qubits, ((IApplyData)Data.Item3)?.Qubits);
+        }
+
+        String ICallable.Name => "PeriodicFunction";
+        String ICallable.FullName => "HW3p1.PeriodicFunction";
+        protected Allocate Allocate
+        {
+            get;
+            set;
+        }
+
+        protected ICallable MicrosoftQuantumCanonApplyToEach
+        {
+            get;
+            set;
+        }
+
+        protected ICallable MicrosoftQuantumCanonMost
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<QArray<Qubit>, QVoid> UtilsPrintRegister
+        {
+            get;
+            set;
+        }
+
+        protected Release Release
+        {
+            get;
+            set;
+        }
+
+        protected IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit)> SubtractIfPossible
+        {
+            get;
+            set;
+        }
+
+        protected ICallable MicrosoftQuantumCanonTail
+        {
+            get;
+            set;
+        }
+
+        protected IUnitary<Qubit> MicrosoftQuantumPrimitiveX
+        {
+            get;
+            set;
+        }
+
+        public override Func<(QArray<Qubit>,QArray<Qubit>,Qubit,Int64), QVoid> Body => (__in) =>
+        {
+            var (x,period,target,maxDivisions) = __in;
+#line 161 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var numBorrows = (x.Count + 2L);
+#line 162 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var lastIndex = ((numBorrows * maxDivisions) - 1L);
+#line 163 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var qubits = Allocate.Apply((lastIndex + 1L));
+#line 164 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            foreach (var i in new Range(0L, (maxDivisions - 1L)))
+            {
+                // Message($"{i * numBorrows} - {(i + 1) * numBorrows - 1}");
+#line 166 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var theseQubits = qubits?.Slice(new Range((i * numBorrows), (((i + 1L) * numBorrows) - 1L)));
+#line 167 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var borrows = MicrosoftQuantumCanonMost.Apply<QArray<Qubit>>(theseQubits);
+#line 168 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var toggle = MicrosoftQuantumCanonTail.Apply<Qubit>(theseQubits);
+#line 170 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                SubtractIfPossible.Apply((x, period, borrows, toggle));
+#line 172 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                if ((i == (maxDivisions - 1L)))
+                {
+#line 173 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), x));
+#line 174 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    MicrosoftQuantumPrimitiveX.Controlled.Apply((x, target));
+#line 175 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                    MicrosoftQuantumCanonApplyToEach.Apply((((ICallable)MicrosoftQuantumPrimitiveX), x));
+                }
+            }
+
+#line 179 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            foreach (var i in new Range(0L, (maxDivisions - 1L)))
+            {
+                // Message($"{lastIndex - (i + 1) * numBorrows + 1} - {lastIndex - i * numBorrows}");
+#line 181 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var theseQubits = qubits?.Slice(new Range(((lastIndex - ((i + 1L) * numBorrows)) + 1L), (lastIndex - (i * numBorrows))));
+#line 182 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var borrows = MicrosoftQuantumCanonMost.Apply<QArray<Qubit>>(theseQubits);
+#line 183 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var toggle = MicrosoftQuantumCanonTail.Apply<Qubit>(theseQubits);
+#line 185 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                SubtractIfPossible.Adjoint.Apply((x, period, borrows, toggle));
+            }
+
+#line 188 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            UtilsPrintRegister.Apply(qubits);
+#line hidden
+            Release.Apply(qubits);
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override void Init()
+        {
+            this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
+            this.MicrosoftQuantumCanonApplyToEach = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.ApplyToEach<>));
+            this.MicrosoftQuantumCanonMost = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Most<>));
+            this.UtilsPrintRegister = this.Factory.Get<ICallable<QArray<Qubit>, QVoid>>(typeof(Utils.PrintRegister));
+            this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
+            this.SubtractIfPossible = this.Factory.Get<IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>,Qubit)>>(typeof(HW3p1.SubtractIfPossible));
+            this.MicrosoftQuantumCanonTail = this.Factory.Get<ICallable>(typeof(Microsoft.Quantum.Canon.Tail<>));
+            this.MicrosoftQuantumPrimitiveX = this.Factory.Get<IUnitary<Qubit>>(typeof(Microsoft.Quantum.Primitive.X));
+        }
+
+        public override IApplyData __dataIn((QArray<Qubit>,QArray<Qubit>,Qubit,Int64) data) => new In(data);
+        public override IApplyData __dataOut(QVoid data) => data;
+        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, QArray<Qubit> x, QArray<Qubit> period, Qubit target, Int64 maxDivisions)
+        {
+            return __m__.Run<PeriodicFunction, (QArray<Qubit>,QArray<Qubit>,Qubit,Int64), QVoid>((x, period, target, maxDivisions));
+        }
+    }
+
+    public class _TestPeriodicFunctionImpl : Operation<(QArray<Qubit>,QArray<Qubit>), QVoid>, ICallable
+    {
+        public _TestPeriodicFunctionImpl(IOperationFactory m) : base(m)
+        {
+        }
+
+        public class In : QTuple<(QArray<Qubit>,QArray<Qubit>)>, IApplyData
+        {
+            public In((QArray<Qubit>,QArray<Qubit>) data) : base(data)
+            {
+            }
+
+            System.Collections.Generic.IEnumerable<Qubit> IApplyData.Qubits => Qubit.Concat(((IApplyData)Data.Item1)?.Qubits, ((IApplyData)Data.Item2)?.Qubits);
+        }
+
+        String ICallable.Name => "_TestPeriodicFunctionImpl";
+        String ICallable.FullName => "HW3p1._TestPeriodicFunctionImpl";
+        protected Allocate Allocate
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<(Result,Result,String), QVoid> MicrosoftQuantumCanonAssertResultEqual
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<Qubit, Result> M
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<String, QVoid> Message
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<(QArray<Qubit>,QArray<Qubit>,Qubit,Int64), QVoid> PeriodicFunction
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<QArray<Qubit>, Int64> UtilsQubitsToInt
+        {
+            get;
+            set;
+        }
+
+        protected Release Release
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<Qubit, QVoid> Reset
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<Boolean, Result> MicrosoftQuantumCanonResultFromBool
+        {
+            get;
+            set;
+        }
+
+        public override Func<(QArray<Qubit>,QArray<Qubit>), QVoid> Body => (__in) =>
+        {
+            var (a,b) = __in;
+#line 195 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var aVal = UtilsQubitsToInt.Apply(a);
+#line 196 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            var bVal = UtilsQubitsToInt.Apply(b);
+#line 197 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            if ((((aVal > 0L) && (bVal > 0L)) && (aVal >= bVal)))
+            {
+#line 198 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var maxDivisions = (aVal / bVal);
+#line 200 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var qubits = Allocate.Apply(1L);
+#line 201 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var target = qubits[0L];
+#line 202 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                PeriodicFunction.Apply((a, b, target, maxDivisions));
+#line 204 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var result = M.Apply(target);
+#line 205 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var divides = ((aVal % bVal) == 0L);
+#line 206 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                var resultFromBool = MicrosoftQuantumCanonResultFromBool.Apply(divides);
+#line 207 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                Message.Apply($"{bVal} | {aVal}: {divides}({resultFromBool}); result: {result}");
+#line 208 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                MicrosoftQuantumCanonAssertResultEqual.Apply((result, resultFromBool, "Incorrect"));
+#line 210 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+                Reset.Apply(target);
+#line hidden
+                Release.Apply(qubits);
+            }
+
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override void Init()
+        {
+            this.Allocate = this.Factory.Get<Allocate>(typeof(Microsoft.Quantum.Primitive.Allocate));
+            this.MicrosoftQuantumCanonAssertResultEqual = this.Factory.Get<ICallable<(Result,Result,String), QVoid>>(typeof(Microsoft.Quantum.Canon.AssertResultEqual));
+            this.M = this.Factory.Get<ICallable<Qubit, Result>>(typeof(Microsoft.Quantum.Primitive.M));
+            this.Message = this.Factory.Get<ICallable<String, QVoid>>(typeof(Microsoft.Quantum.Primitive.Message));
+            this.PeriodicFunction = this.Factory.Get<ICallable<(QArray<Qubit>,QArray<Qubit>,Qubit,Int64), QVoid>>(typeof(HW3p1.PeriodicFunction));
+            this.UtilsQubitsToInt = this.Factory.Get<ICallable<QArray<Qubit>, Int64>>(typeof(Utils.QubitsToInt));
+            this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
+            this.Reset = this.Factory.Get<ICallable<Qubit, QVoid>>(typeof(Microsoft.Quantum.Primitive.Reset));
+            this.MicrosoftQuantumCanonResultFromBool = this.Factory.Get<ICallable<Boolean, Result>>(typeof(Microsoft.Quantum.Canon.ResultFromBool));
+        }
+
+        public override IApplyData __dataIn((QArray<Qubit>,QArray<Qubit>) data) => new In(data);
+        public override IApplyData __dataOut(QVoid data) => data;
+        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, QArray<Qubit> a, QArray<Qubit> b)
+        {
+            return __m__.Run<_TestPeriodicFunctionImpl, (QArray<Qubit>,QArray<Qubit>), QVoid>((a, b));
+        }
+    }
+
+    public class TestPeriodicFunction : Operation<Int64, QVoid>, ICallable
+    {
+        public TestPeriodicFunction(IOperationFactory m) : base(m)
+        {
+        }
+
+        String ICallable.Name => "TestPeriodicFunction";
+        String ICallable.FullName => "HW3p1.TestPeriodicFunction";
+        protected ICallable<(Int64,ICallable), QVoid> UtilsRunOnAllTwoBinariesOfLength
+        {
+            get;
+            set;
+        }
+
+        protected ICallable<(QArray<Qubit>,QArray<Qubit>), QVoid> _TestPeriodicFunctionImpl
+        {
+            get;
+            set;
+        }
+
+        public override Func<Int64, QVoid> Body => (__in) =>
+        {
+            var length = __in;
+#line 218 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/Problem5.qs"
+            UtilsRunOnAllTwoBinariesOfLength.Apply((length, ((ICallable)_TestPeriodicFunctionImpl)));
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override void Init()
+        {
+            this.UtilsRunOnAllTwoBinariesOfLength = this.Factory.Get<ICallable<(Int64,ICallable), QVoid>>(typeof(Utils.RunOnAllTwoBinariesOfLength));
+            this._TestPeriodicFunctionImpl = this.Factory.Get<ICallable<(QArray<Qubit>,QArray<Qubit>), QVoid>>(typeof(HW3p1._TestPeriodicFunctionImpl));
+        }
+
+        public override IApplyData __dataIn(Int64 data) => new QTuple<Int64>(data);
+        public override IApplyData __dataOut(QVoid data) => data;
+        public static System.Threading.Tasks.Task<QVoid> Run(IOperationFactory __m__, Int64 length)
+        {
+            return __m__.Run<TestPeriodicFunction, Int64, QVoid>(length);
         }
     }
 }

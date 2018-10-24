@@ -7,7 +7,7 @@
 
     operation _SubtractBit(t1: Qubit, t2: Qubit, borrowIn: Qubit, borrowOut: Qubit): () {
         body {
-            Assert([PauliZ], [borrowOut], Zero, "Carry out is not in |0> state");
+            Assert([PauliZ], [borrowOut], Zero, "Borrow out is not in |0> state");
 
             X(t1);
             Toffoli(t1, t2, borrowOut);
@@ -91,20 +91,24 @@
                 let zeroTest = Tail(qubits);
                 Subtractor(a, b, borrows);
 
-                ApplyToEach(X, a);
+                ApplyToEachCA(X, a);
                 (Controlled X)(a, zeroTest);
-                ApplyToEach(X, a);
+                ApplyToEachCA(X, a);
 
                 let indicator = Head(borrows);
                 QubitOr(indicator, zeroTest, target);
 
-                ApplyToEach(X, a);
+                ApplyToEachCA(X, a);
                 (Controlled X)(a, zeroTest);
-                ApplyToEach(X, a);
+                ApplyToEachCA(X, a);
 
                 (Adjoint Subtractor)(a, b, borrows);
             }
         }
+
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
     }
 
     operation TestXIfLessThanOrEqual(length: Int): () {
@@ -137,13 +141,83 @@
         }
     }
 
-    // operation PeriodicFunction(x: Int, period: Int, target: Qubit): Int {
-    //     body {
-    //         if (x % period) == 0 {
-    //             X(target);
-    //         }
-    //     }
-    // }
+    operation SubtractIfPossible(a: Qubit[], b: Qubit[], borrows: Qubit[], toggle: Qubit): () {
+        body {
+            Subtractor(a, b, borrows);
+
+            let indicator = Head(borrows);
+            CNOT(indicator, toggle);
+
+            (Controlled (Adjoint Subtractor))([toggle], (a, b, borrows));
+        }
+
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
+    }
+
+    operation PeriodicFunction(x: Qubit[], period: Qubit[], target: Qubit, maxDivisions: Int): () {
+        body {
+            let numBorrows = (Length(x) + 2);
+            let lastIndex = numBorrows * maxDivisions - 1;
+            using(qubits = Qubit[lastIndex + 1]) {
+                for (i in 0..maxDivisions - 1) {
+                    // Message($"{i * numBorrows} - {(i + 1) * numBorrows - 1}");
+                    let theseQubits = qubits[i * numBorrows..(i + 1) * numBorrows - 1];
+                    let borrows = Most(theseQubits);
+                    let toggle = Tail(theseQubits);
+
+                    SubtractIfPossible(x, period, borrows, toggle);
+
+                    if (i == maxDivisions - 1) {
+                        ApplyToEach(X, x);
+                        (Controlled X)(x, target);
+                        ApplyToEach(X, x);
+                    }
+                }
+
+                for (i in 0..maxDivisions - 1) {
+                    // Message($"{lastIndex - (i + 1) * numBorrows + 1} - {lastIndex - i * numBorrows}");
+                    let theseQubits = qubits[lastIndex - (i + 1) * numBorrows + 1..lastIndex - i * numBorrows];
+                    let borrows = Most(theseQubits);
+                    let toggle = Tail(theseQubits);
+
+                    (Adjoint SubtractIfPossible)(x, period, borrows, toggle);
+                }
+
+                PrintRegister(qubits);
+            }
+        }
+    }
+
+    operation _TestPeriodicFunctionImpl(a: Qubit[], b: Qubit[]): () {
+        body {
+            let aVal = QubitsToInt(a);
+            let bVal = QubitsToInt(b);
+            if (aVal > 0 && bVal > 0 && aVal >= bVal) {
+                let maxDivisions = aVal / bVal;
+
+                using(qubits = Qubit[1]) {
+                    let target = qubits[0];
+                    PeriodicFunction(a, b, target, maxDivisions);
+
+                    let result = M(target);
+                    let divides = aVal % bVal == 0;
+                    let resultFromBool = ResultFromBool(divides);
+                    Message($"{bVal} | {aVal}: {divides}({resultFromBool}); result: {result}");
+                    AssertResultEqual(result, resultFromBool, "Incorrect");
+
+                    Reset(target);
+                }
+            }
+        }
+    }
+
+    operation TestPeriodicFunction(length: Int): () {
+        body {
+            RunOnAllTwoBinariesOfLength(length, _TestPeriodicFunctionImpl);
+        }
+    }
 
     // operation VerifyProblem5 (t: Int, r: Int) : ()
     // {
