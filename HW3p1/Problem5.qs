@@ -5,51 +5,84 @@
     open Microsoft.Quantum.Primitive;
     open Utils;
 
-    // operation _SubtractBit(t1: Qubit, t2: Qubit, borrowIn: Qubit, borrowOut: Qubit): () {
-    //     body {
-    //         Assert([PauliZ], [borrowOut], Zero, "Borrow out is not in |0> state");
+    operation _SubtractBit(t1: Qubit, t2: Qubit, borrowIn: Qubit, borrowOut: Qubit): () {
+        body {
+            Assert([PauliZ], [borrowOut], Zero, "Borrow out is not in |0> state");
 
-    //         X(t1);
-    //         Toffoli(t1, t2, borrowOut);
-    //         Toffoli(t1, borrowIn, borrowOut);
-    //         Toffoli(t2, borrowIn, borrowOut);
-    //         X(t1);
-    //         // let m4 = M(borrowOut);
-    //         // Message($"borrowOut: {m4}");
+            X(t1);
+            Toffoli(t1, t2, borrowOut);
+            Toffoli(t1, borrowIn, borrowOut);
+            Toffoli(t2, borrowIn, borrowOut);
+            X(t1);
+            // let m4 = M(borrowOut);
+            // Message($"borrowOut: {m4}");
 
-    //         ApplyToEachCA(CNOT(_, t1), [t2; borrowIn]);
-    //     }
+            ApplyToEachCA(CNOT(_, t1), [t2; borrowIn]);
+        }
 
-    //     adjoint auto;
-    //     controlled auto;
-    //     controlled adjoint auto;
-    // }
-    // operation Subtractor(start: Qubit[], amount: Qubit[], borrows: Qubit[]): () {
-    //     body {
-    //         AssertBoolEqual(Length(start) >= Length(amount), true, $"unequal operand lengths");
-    //         AssertIntEqual(Length(start) + 1, Length(borrows), $"not right amount of borrows");
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
+    }
+    operation BitSubtractor(start: Qubit[], amount: Qubit[], borrows: Qubit[]): () {
+        body {
+            AssertBoolEqual(Length(start) >= Length(amount), true, $"unequal operand lengths");
+            AssertIntEqual(Length(start) + 1, Length(borrows), $"not right amount of borrows");
 
-    //         using(padding = Qubit[1]) {
-    //             for (j in Length(start) - 1..-1..0) {
-    //                 let sop = _SubtractBit(start[j], _, borrows[j+1], borrows[j]);
-    //                 if (j >= Length(start) - Length(amount)) {
-    //                     sop(amount[j - Length(start) + Length(amount)]);
-    //                 } else {
-    //                     sop(padding[0]);
-    //                 }
-    //                 // let m1 = M(start[j]);
-    //                 // let m2 = M(amountBit);
-    //                 // let m3 = M(borrows[j+1]);
-    //                 // Message($"start: {m1}, amount: {m2}, borrowIn: {m3}");
-    //             }
-    //         }
+            using(padding = Qubit[1]) {
+                for (j in Length(start) - 1..-1..0) {
+                    let sop = _SubtractBit(start[j], _, borrows[j+1], borrows[j]);
+                    if (j >= Length(start) - Length(amount)) {
+                        sop(amount[j - Length(start) + Length(amount)]);
+                    } else {
+                        sop(padding[0]);
+                    }
+                    // let m1 = M(start[j]);
+                    // let m2 = M(amountBit);
+                    // let m3 = M(borrows[j+1]);
+                    // Message($"start: {m1}, amount: {m2}, borrowIn: {m3}");
+                }
+            }
 
-    //     }
+        }
         
-    //     adjoint auto;
-    //     controlled auto;
-    //     controlled adjoint auto;
-    // }
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
+    }
+    operation TestSubtractor(length: Int, rPow: Int): () {
+        body {
+            let binaries = GenerateAllBinariesOfLength(length);
+            let rInt = 2 ^ rPow;
+            let rLength = BitSize(rInt);
+            let rLastIndex = rLength - 1;
+            let regLastIndex = rLastIndex + length;
+            let borrowsLastIndex = regLastIndex + length + 1;
+
+            using(qubits = Qubit[borrowsLastIndex + 1]) {
+                for (i in 0..Length(binaries) - 1) {
+                    Message($"start: {i}:");
+                    let binary = binaries[i];
+                    let r = qubits[0..rLastIndex];
+                    let register = qubits[rLastIndex + 1..regLastIndex];
+                    let borrows = qubits[regLastIndex + 1..borrowsLastIndex];
+                    SetQubits(register, binary);
+                    X(Head(r));
+
+                    if (QubitsToInt(register) >= rInt) {
+                        BitSubtractor(register, r, borrows);
+
+                        let trueAnswer = i - rInt;
+                        let answer = QubitsToInt(register);
+                        AssertIntEqual(trueAnswer, answer, $"Not equal. true: {trueAnswer}, calculated: {answer}");
+                    }
+                    Message("");
+
+                    ResetAll(qubits);
+                }
+            }
+        }
+    }
 
     operation QFTSubtractor(start: Qubit[], amount: Int): () {
         body {
@@ -79,51 +112,35 @@
             }
         }
     }
-    operation _TestQFTSubtractor(length: Int, maxR: Int): () {
+    operation TestQFTSubtractor(length: Int, maxR: Int): () {
         body {
             RunOnAllBinariesOfLength(length, _TestQFTSubtractorImpl(_, maxR));
         }
     }
-    // operation TestSubtractor(length: Int, rPow: Int): () {
-    //     body {
-    //         let binaries = GenerateAllBinariesOfLength(length);
-    //         let rInt = 2 ^ rPow;
-    //         let rLength = BitSize(rInt);
-    //         let rLastIndex = rLength - 1;
-    //         let regLastIndex = rLastIndex + length;
-    //         let borrowsLastIndex = regLastIndex + length + 1;
 
-    //         using(qubits = Qubit[borrowsLastIndex + 1]) {
-    //             for (i in 0..Length(binaries) - 1) {
-    //                 Message($"start: {i}:");
-    //                 let binary = binaries[i];
-    //                 let r = qubits[0..rLastIndex];
-    //                 let register = qubits[rLastIndex + 1..regLastIndex];
-    //                 let borrows = qubits[regLastIndex + 1..borrowsLastIndex];
-    //                 SetQubits(register, binary);
-    //                 X(Head(r));
+    operation XIfLessThan(a: Qubit[], b: Qubit[], target: Qubit): () {
+        body {
+            using(borrows = Qubit[Length(a) + 1]) {
+                BitSubtractor(a, b, borrows);
 
-    //                 if (QubitsToInt(register) >= rInt) {
-    //                     Subtractor(register, r, borrows);
+                let indicator = Head(borrows);
+                CNOT(indicator, target);
 
-    //                     let trueAnswer = i - rInt;
-    //                     let answer = QubitsToInt(register);
-    //                     AssertIntEqual(trueAnswer, answer, $"Not equal. true: {trueAnswer}, calculated: {answer}");
-    //                 }
-    //                 Message("");
+                (Adjoint BitSubtractor)(a, b, borrows);
+            }
+        }
 
-    //                 ResetAll(qubits);
-    //             }
-    //         }
-    //     }
-    // }
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
+    }
 
     // operation XIfLessThanOrEqual(a: Qubit[], b: Qubit[], target: Qubit): () {
     //     body {
     //         using(qubits = Qubit[Length(a) + 2]) {
     //             let borrows = Most(qubits);
     //             let zeroTest = Tail(qubits);
-    //             Subtractor(a, b, borrows);
+    //             BitSubtractor(a, b, borrows);
 
     //             ApplyToEachCA(X, a);
     //             (Controlled X)(a, zeroTest);
@@ -136,7 +153,7 @@
     //             (Controlled X)(a, zeroTest);
     //             ApplyToEachCA(X, a);
 
-    //             (Adjoint Subtractor)(a, b, borrows);
+    //             (Adjoint BitSubtractor)(a, b, borrows);
     //         }
     //     }
 
@@ -175,74 +192,91 @@
     //     }
     // }
 
-    // operation SubtractIfPossible(a: Qubit[], b: Qubit[], borrows: Qubit[], ancilla: Qubit): () {
-    //     body {
-    //         Subtractor(a, b, borrows);
+    operation SubtractIfPossible(a: Qubit[], b: Qubit[], bVal: Int, ancilla: Qubit): () {
+        body {
+            XIfLessThan(a, b, ancilla);
+            X(ancilla);
+            (Controlled QFTSubtractor)([ancilla], (a, bVal));
+        }
 
-    //         let indicator = Head(borrows);
-    //         CNOT(indicator, ancilla);
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
+    }
 
-    //         (Controlled (Adjoint Subtractor))([ancilla], (a, b, borrows));
-    //     }
+    operation PeriodicFunction(x: Qubit[], period: Int, target: Qubit, maxDivisions: Int): () {
+        body {
+            let rBinary = IntToBinary(period);
+            using(qubits = Qubit[Length(rBinary) + maxDivisions]) {
+                let rQubits = qubits[0..Length(rBinary) - 1];
+                let ancillas = qubits[Length(rBinary)..Length(rBinary) + maxDivisions - 1];
+                SetQubits(rQubits, rBinary);
+                
+                for (i in 0..maxDivisions - 1) {
+                    SubtractIfPossible(x, rQubits, period, ancillas[i]);
+                }
 
-    //     adjoint auto;
-    //     controlled auto;
-    //     controlled adjoint auto;
-    // }
+                ApplyToEachCA(X, x);
+                (Controlled X)(x, target);
+                ApplyToEachCA(X, x);
 
-    // operation PeriodicFunction(x: Qubit[], period: Qubit[], target: Qubit, maxDivisions: Int, depth: Int): () {
-    //     body {
-    //         if (depth > maxDivisions) {
-    //             ApplyToEachCA(X, x);
-    //             (Controlled X)(x, target);
-    //             ApplyToEachCA(X, x);
-    //         } else {
-    //             using(qubits = Qubit[Length(x) + 2]) {
-    //                 let borrows = Most(qubits);
-    //                 let ancilla = Tail(qubits);
+                for (i in 0..maxDivisions - 1) {
+                    (Adjoint SubtractIfPossible)(x, rQubits, period, ancillas[i]);
+                }
+                
+                (Adjoint SetQubits)(rQubits, rBinary);
+            }
+            // if (depth > maxDivisions) {
+            //     ApplyToEachCA(X, x);
+            //     (Controlled X)(x, target);
+            //     ApplyToEachCA(X, x);
+            // } else {
+            //     using(qubits = Qubit[Length(x) + 2]) {
+            //         let borrows = Most(qubits);
+            //         let ancilla = Tail(qubits);
 
-    //                 SubtractIfPossible(x, period, borrows, ancilla);
+            //         SubtractIfPossible(x, period, borrows, ancilla);
 
-    //                 PeriodicFunction(x, period, target, maxDivisions, depth + 1);
+            //         PeriodicFunction(x, period, target, maxDivisions, depth + 1);
 
-    //                 (Adjoint SubtractIfPossible)(x, period, borrows, ancilla);
-    //             }
-    //         }
-    //     }
+            //         (Adjoint SubtractIfPossible)(x, period, borrows, ancilla);
+            //     }
+            // }
+        }
 
-    //     adjoint auto;
-    //     controlled auto;
-    //     controlled adjoint auto;
-    // }
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
+    }
 
-    // operation _TestPeriodicFunctionImpl(a: Qubit[], b: Qubit[]): () {
-    //     body {
-    //         let aVal = QubitsToInt(a);
-    //         let bVal = QubitsToInt(b);
-    //         if (aVal > 0 && bVal > 0) {
-    //             let maxDivisions = aVal / bVal;
+    operation _TestPeriodicFunctionImpl(a: Qubit[], b: Qubit[]): () {
+        body {
+            let aVal = QubitsToInt(a);
+            let bVal = QubitsToInt(b);
+            if (aVal > 0 && bVal > 0) {
+                let maxDivisions = aVal / bVal;
 
-    //             using(qubits = Qubit[1]) {
-    //                 let target = qubits[0];
-    //                 PeriodicFunction(a, b, target, maxDivisions, 0);
+                using(qubits = Qubit[1]) {
+                    let target = qubits[0];
+                    PeriodicFunction(a, bVal, target, maxDivisions);
 
-    //                 let result = M(target);
-    //                 let divides = aVal >= bVal && aVal % bVal == 0;
-    //                 let resultFromBool = ResultFromBool(divides);
-    //                 Message($"{bVal} | {aVal}: {divides}({resultFromBool}); result: {result}");
-    //                 AssertResultEqual(result, resultFromBool, "Incorrect");
+                    let result = M(target);
+                    let divides = aVal >= bVal && aVal % bVal == 0;
+                    let resultFromBool = ResultFromBool(divides);
+                    Message($"{bVal} | {aVal}: {divides}({resultFromBool}); result: {result}");
+                    AssertResultEqual(result, resultFromBool, "Incorrect");
 
-    //                 Reset(target);
-    //             }
-    //         }
-    //     }
-    // }
+                    Reset(target);
+                }
+            }
+        }
+    }
 
-    // operation TestPeriodicFunction(length: Int): () {
-    //     body {
-    //         RunOnAllTwoBinariesOfLength(length, _TestPeriodicFunctionImpl);
-    //     }
-    // }
+    operation TestPeriodicFunction(length: Int): () {
+        body {
+            RunOnAllTwoBinariesOfLength(length, _TestPeriodicFunctionImpl);
+        }
+    }
 
     // operation VerifyProblem5 (t: Int, r: Int) : ()
     // {
