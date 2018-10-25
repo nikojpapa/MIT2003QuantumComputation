@@ -2,6 +2,7 @@
 {
     open Microsoft.Quantum.Canon;
     open Microsoft.Quantum.Extensions.Convert;
+    open Microsoft.Quantum.Extensions.Testing;
     open Microsoft.Quantum.Primitive;
     open Utils;
 
@@ -197,6 +198,8 @@
             XIfLessThan(a, b, ancilla);
             X(ancilla);
             (Controlled QFTSubtractor)([ancilla], (a, bVal));
+            X(ancilla);
+            (Adjoint XIfLessThan)(a, b, ancilla);
         }
 
         adjoint auto;
@@ -226,22 +229,6 @@
                 
                 (Adjoint SetQubits)(rQubits, rBinary);
             }
-            // if (depth > maxDivisions) {
-            //     ApplyToEachCA(X, x);
-            //     (Controlled X)(x, target);
-            //     ApplyToEachCA(X, x);
-            // } else {
-            //     using(qubits = Qubit[Length(x) + 2]) {
-            //         let borrows = Most(qubits);
-            //         let ancilla = Tail(qubits);
-
-            //         SubtractIfPossible(x, period, borrows, ancilla);
-
-            //         PeriodicFunction(x, period, target, maxDivisions, depth + 1);
-
-            //         (Adjoint SubtractIfPossible)(x, period, borrows, ancilla);
-            //     }
-            // }
         }
 
         adjoint auto;
@@ -278,40 +265,39 @@
         }
     }
 
-    // operation VerifyProblem5 (t: Int, r: Int) : ()
-    // {
-    //     body
-    //     {
-    //         mutable attempts = 0;
-    //         mutable success = 0;
-    //         using(qubits = Qubit[t + 4]) {
-    //             for (i in 0..10) {
-    //                 Message($"{i}");
-    //                 let rReg = qubits[t..t + 2];
-    //                 X(Head(rReg));
-    //                 let firstReg = qubits[0..t-1];
-    //                 let secondReg = Tail(qubits);
+    operation VerifyProblem5 (t: Int, r: Int, maxDivisions: Int) : ()
+    {
+        body
+        {
+            mutable attempts = 0;
+            mutable success = 0;
+            using(qubits = Qubit[t + 1]) {
+                for (i in 0..10) {
+                    Message($"Iteration: {i}");
+                    // let rReg = qubits[t..t + 2];
+                    // X(Head(rReg));
+                    let firstReg = qubits[0..t-1];
+                    let secondReg = Tail(qubits);
 
-    //                 ApplyToEach(H, firstReg);
-    //                 Message($"Periodic");
-    //                 PeriodicFunction(firstReg, rReg, secondReg, 4, 0);
-    //                 Message($"Inverse QFT");
-    //                 (Adjoint QFT)(BigEndian(firstReg));
-    //                 Message($"Measure");
-    //                 let l = MeasureIntegerBE(BigEndian(firstReg));
-    //                 Message($"Continued Fractions");
-    //                 let (s, foundR) = ContinuedFractionConvergent(Fraction(l, 2 ^ t), 10);
+                    ApplyToEach(H, firstReg);
+                    PeriodicFunction(firstReg, r, secondReg, maxDivisions);
+                    (Adjoint QFT)(BigEndian(firstReg));
+
+                    let l = MeasureIntegerBE(BigEndian(firstReg));
+                    Message($"L: {l}");
+                    let (s, foundR) = ContinuedFractionConvergent(Fraction(l, 2 ^ t), 10);
+                    Message($"S: {s}");
                     
-    //                 let thisSuccess = foundR == r;
-    //                 set attempts = attempts + 1;
-    //                 if (thisSuccess) {
-    //                     set success = success + 1;
-    //                 }
-    //                 Message(ToStringI(foundR));
-    //                 ResetAll(qubits);
-    //             }
-    //         }
-    //         Message($"Success Rate: {success * 1.0 / attempts}");
-    //     }
-    // }
+                    let thisSuccess = foundR == r;
+                    set attempts = attempts + 1;
+                    if (thisSuccess) {
+                        set success = success + 1;
+                    }
+                    Message("Found R: " + ToStringI(foundR));
+                    ResetAll(qubits);
+                }
+            }
+            Message($"Success Rate: {success * 1.0 / attempts}");
+        }
+    }
 }
