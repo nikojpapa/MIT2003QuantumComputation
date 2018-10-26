@@ -199,7 +199,6 @@
             X(ancilla);
             (Controlled QFTSubtractor)([ancilla], (a, bVal));
             X(ancilla);
-            (Adjoint XIfLessThan)(a, b, ancilla);
         }
 
         adjoint auto;
@@ -223,7 +222,7 @@
                 (Controlled X)(x, target);
                 ApplyToEachCA(X, x);
 
-                for (i in 0..maxDivisions - 1) {
+                for (i in maxDivisions - 1..-1..0) {
                     (Adjoint SubtractIfPossible)(x, rQubits, period, ancillas[i]);
                 }
                 
