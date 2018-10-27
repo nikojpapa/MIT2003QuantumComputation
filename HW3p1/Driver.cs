@@ -12,7 +12,10 @@ namespace HW3p1
                 // TestQFTSubtractor.Run(sim, 7, 4).Wait(-1);
                 // TestXIfLessThanOrEqual.Run(sim, 4).Wait();
                 // TestPeriodicFunction.Run(sim, 4).Wait(-1);
-                VerifyProblem5.Run(sim, 8, 2, 4).Wait(-1);
+                // VerifyProblem5.Run(sim, 8, 2, 4).Wait(-1);
+
+                _TestQFTAdder.Run(sim, 3).Wait(-1);
+                // _TestOrderFindingU.Run(sim).Wait(-1);
             }
         }
     }
