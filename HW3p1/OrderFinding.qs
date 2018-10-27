@@ -1,6 +1,7 @@
 namespace HW3p1 {
     open Microsoft.Quantum.Canon;
     open Microsoft.Quantum.Extensions.Convert;
+    open Microsoft.Quantum.Extensions.Math;
     open Microsoft.Quantum.Extensions.Testing;
     open Microsoft.Quantum.Primitive;
     open Utils;
@@ -12,17 +13,11 @@ namespace HW3p1 {
 
             QFT(bigEndian);
 
-            for (i in 0..Length(amount) - 1) {
-                let startSubArray = start[Length(start) - 1 - i..Length(start) - 1];
-                SwapReverseRegister(startSubArray);
-                ApplyToEachIndexCA((Controlled R1Frac)([amount[i]], (1, _, _)), startSubArray);
-                SwapReverseRegister(startSubArray);
-                // for (j in i..Length(start) - i) {
-                //     (Controlled R1Frac)([amount[i]], (1, i, start[Length(start) - 1 - i])))
-                // }
-                // ApplyToEachIndexCA((Controlled R1Frac)([amount[i]], (1, i, start[Length(start) - 1 - i])); 
+            for (i in Length(amount) - 1..-1..0) {
+                let add = 2 ^ (Length(amount) - 1 - i);
+                ApplyToEachIndexCA((Controlled R1Frac)([amount[i]], (add, _, _)), start);
             }
-            // ApplyToEachIndexCA(R1Frac(amount, _, _), start);
+
             (Adjoint QFT)(bigEndian);
         }
 
@@ -48,7 +43,7 @@ namespace HW3p1 {
     //         AssertOperationsEqualInPlaceCompBasis(_AddComputationalBasis(_ ,q), QFTAdder(_, q), binaryLength);
     //     }
     // }
-    operation _TestQFTAdderImpl(q1: Qubit[], q2: Qubit[]): () {
+    operation _TestQFTAdderImpl(q1: Qubit[], q2: Qubit[], modulus: Int): () {
         body {
             let q1Val = QubitsToInt(q1);
             let q2Val = QubitsToInt(q2);
@@ -56,14 +51,14 @@ namespace HW3p1 {
             QFTAdder(q1, q2);
 
             let calcAns = QubitsToInt(q1);
-            let trueAns = q1Val + q2Val;
+            let trueAns = (q1Val + q2Val) % modulus;
             AssertIntEqual(calcAns, trueAns, $"{q1Val} + {q2Val} != {calcAns}");
             Message($"{q1Val} + {q2Val} == {calcAns}");
         }
     }
     operation _TestQFTAdder(binaryLength: Int): () {
         body {
-            RunOnAllTwoBinariesOfLength(binaryLength, _TestQFTAdderImpl);
+            RunOnAllTwoBinariesOfLength(binaryLength, _TestQFTAdderImpl(_, _, 2 ^ binaryLength));
         }
     }
 
