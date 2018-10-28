@@ -8,7 +8,6 @@ namespace HW3p1 {
 
     operation QFTAdder(start: Qubit[], amount: Qubit[]): () {
         body {
-            AssertIntEqual(Length(start), Length(amount), "Must be equal length");
             let bigEndian = BigEndian(start);
 
             QFT(bigEndian);
@@ -62,7 +61,53 @@ namespace HW3p1 {
         }
     }
 
-    // operation OrderFindingU(k: Int, xInt: Int, target: Qubit[]): () {  // U|k> = |x * k>
+    operation Multiplier(multiplicand: Qubit[], multiplier: Qubit[], ancilla: Qubit[]): () {  //ancilla must be able to contain product
+        body {
+            AssertAllZero(ancilla);
+
+            (Controlled QFTAdder)([multiplier[Length(multiplier) - 1]], (ancilla, multiplicand));
+            for (i in Length(multiplier) - 2..-1..0) { 
+                using (leftShifts = Qubit[Length(multiplier) - 1 - i]) {
+                    (Controlled QFTAdder)([multiplier[i]], (ancilla, multiplicand + leftShifts));
+                }
+            }
+
+            // for (i in 0..Length(multiplicand) - 1) {
+            //     SWAP(multiplicand[i], ancilla[i]);
+            // }
+        }
+    }
+
+    operation _TestMultiplierImpl(q1: Qubit[], q2: Qubit[]): () {
+        body {
+            let q1Val = QubitsToInt(q1);
+            let q2Val = QubitsToInt(q2);
+            let maxProduct = 2 ^ Length(q1) * 2 ^ Length(q2);
+            let maxProductLength = BitSize(maxProduct);
+
+            using (target = Qubit[maxProductLength]) {
+                // for (i in 0..Length(q1) - 1) {
+                //     CNOT(q1[i], target[i]);
+                // }
+
+                Multiplier(q1, q2, target);
+
+                let calcAns = QubitsToInt(target);
+                let trueAns = q1Val * q2Val;
+                AssertIntEqual(calcAns, trueAns, $"{q1Val} * {q2Val} != {calcAns}");
+                Message($"{q1Val} * {q2Val} == {calcAns}");
+
+                ResetAll(target);
+            }
+        }
+    }
+    operation _TestMultiplier(binaryLength: Int): () {
+        body {
+            RunOnAllTwoBinariesOfLength(binaryLength, _TestMultiplierImpl);
+        }
+    }
+
+    // operation OrderFindingU(reg: Qubit[], x: Qubit[]): () {  // U|k> = |x * k>
     //     body {
     //         AssertAllZero(target);
     //         for (i in 0..k - 1) {
