@@ -7,9 +7,9 @@ using Microsoft.Quantum.MetaData.Attributes;
 [assembly: OperationDeclaration("HW3p1", "QFTAdder (start : Qubit[], amount : Qubit[]) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 305L, 9L, 61L)]
 [assembly: OperationDeclaration("HW3p1", "_TestQFTAdderImpl (q1 : Qubit[], q2 : Qubit[], modulus : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 1503L, 45L, 77L)]
 [assembly: OperationDeclaration("HW3p1", "_TestQFTAdder (binaryLength : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 1934L, 58L, 52L)]
-[assembly: OperationDeclaration("HW3p1", "Multiplier (multiplicand : Qubit[], multiplier : Qubit[], ancilla : Qubit[]) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 2157L, 64L, 92L)]
-[assembly: OperationDeclaration("HW3p1", "_TestMultiplierImpl (q1 : Qubit[], q2 : Qubit[]) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 2820L, 81L, 65L)]
-[assembly: OperationDeclaration("HW3p1", "_TestMultiplier (binaryLength : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 3616L, 104L, 54L)]
+[assembly: OperationDeclaration("HW3p1", "Multiplier (multiplicand : Qubit[], multiplier : Qubit[], ancilla : Qubit[]) : ()", new string[] { "Controlled", "Adjoint" }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 2157L, 64L, 92L)]
+[assembly: OperationDeclaration("HW3p1", "_TestMultiplierImpl (q1 : Qubit[], q2 : Qubit[]) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 2773L, 81L, 65L)]
+[assembly: OperationDeclaration("HW3p1", "_TestMultiplier (binaryLength : Int) : ()", new string[] { }, "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs", 3450L, 100L, 54L)]
 #line hidden
 namespace HW3p1
 {
@@ -266,7 +266,7 @@ namespace HW3p1
         }
     }
 
-    public class Multiplier : Operation<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>), QVoid>, ICallable
+    public class Multiplier : Unitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)>, ICallable
     {
         public Multiplier(IOperationFactory m) : base(m)
         {
@@ -327,10 +327,66 @@ namespace HW3p1
                 Release.Apply(leftShifts);
             }
 
-            // for (i in 0..Length(multiplicand) - 1) {
-            //     SWAP(multiplicand[i], ancilla[i]);
-            // }
-            ;
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>), QVoid> AdjointBody => (__in) =>
+        {
+            var (multiplicand,multiplier,ancilla) = __in;
+            foreach (var i in new Range(((multiplier.Count - 2L) - (((0L - (multiplier.Count - 2L)) / -(1L)) * -(-(1L)))), -(-(1L)), (multiplier.Count - 2L)))
+            {
+                var leftShifts = Allocate.Apply(((multiplier.Count - 1L) - i));
+                QFTAdder.Controlled.Adjoint.Apply((new QArray<Qubit>()
+                {multiplier[i]}, (ancilla, (multiplicand + leftShifts))));
+#line hidden
+                Release.Apply(leftShifts);
+            }
+
+            QFTAdder.Controlled.Adjoint.Apply((new QArray<Qubit>()
+            {multiplier[(multiplier.Count - 1L)]}, (ancilla, multiplicand)));
+            MicrosoftQuantumExtensionsTestingAssertAllZero.Adjoint.Apply(ancilla);
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)), QVoid> ControlledBody => (__in) =>
+        {
+            var (controlQubits,(multiplicand,multiplier,ancilla)) = __in;
+            MicrosoftQuantumExtensionsTestingAssertAllZero.Controlled.Apply((controlQubits, ancilla));
+            QFTAdder.Controlled.Controlled.Apply((controlQubits, (new QArray<Qubit>()
+            {multiplier[(multiplier.Count - 1L)]}, (ancilla, multiplicand))));
+            foreach (var i in new Range((multiplier.Count - 2L), -(1L), 0L))
+            {
+                var leftShifts = Allocate.Apply(((multiplier.Count - 1L) - i));
+                QFTAdder.Controlled.Controlled.Apply((controlQubits, (new QArray<Qubit>()
+                {multiplier[i]}, (ancilla, (multiplicand + leftShifts)))));
+#line hidden
+                Release.Apply(leftShifts);
+            }
+
+#line hidden
+            return QVoid.Instance;
+        }
+
+        ;
+        public override Func<(QArray<Qubit>,(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)), QVoid> ControlledAdjointBody => (__in) =>
+        {
+            var (controlQubits,(multiplicand,multiplier,ancilla)) = __in;
+            foreach (var i in new Range(((multiplier.Count - 2L) - (((0L - (multiplier.Count - 2L)) / -(1L)) * -(-(1L)))), -(-(1L)), (multiplier.Count - 2L)))
+            {
+                var leftShifts = Allocate.Apply(((multiplier.Count - 1L) - i));
+                QFTAdder.Controlled.Adjoint.Controlled.Apply((controlQubits, (new QArray<Qubit>()
+                {multiplier[i]}, (ancilla, (multiplicand + leftShifts)))));
+#line hidden
+                Release.Apply(leftShifts);
+            }
+
+            QFTAdder.Controlled.Adjoint.Controlled.Apply((controlQubits, (new QArray<Qubit>()
+            {multiplier[(multiplier.Count - 1L)]}, (ancilla, multiplicand))));
+            MicrosoftQuantumExtensionsTestingAssertAllZero.Adjoint.Controlled.Apply((controlQubits, ancilla));
 #line hidden
             return QVoid.Instance;
         }
@@ -393,7 +449,7 @@ namespace HW3p1
             set;
         }
 
-        protected ICallable<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>), QVoid> Multiplier
+        protected IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)> Multiplier
         {
             get;
             set;
@@ -430,20 +486,17 @@ namespace HW3p1
             var maxProductLength = MicrosoftQuantumCanonBitSize.Apply(maxProduct);
 #line 88 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             var target = Allocate.Apply(maxProductLength);
-            // for (i in 0..Length(q1) - 1) {
-            //     CNOT(q1[i], target[i]);
-            // }
-#line 93 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 89 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             Multiplier.Apply((q1, q2, target));
-#line 95 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 91 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             var calcAns = UtilsQubitsToInt.Apply(target);
-#line 96 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 92 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             var trueAns = (q1Val * q2Val);
-#line 97 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 93 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             MicrosoftQuantumCanonAssertIntEqual.Apply((calcAns, trueAns, $"{q1Val} * {q2Val} != {calcAns}"));
-#line 98 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 94 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             Message.Apply($"{q1Val} * {q2Val} == {calcAns}");
-#line 100 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 96 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             ResetAll.Apply(target);
 #line hidden
             Release.Apply(target);
@@ -458,7 +511,7 @@ namespace HW3p1
             this.MicrosoftQuantumCanonAssertIntEqual = this.Factory.Get<ICallable<(Int64,Int64,String), QVoid>>(typeof(Microsoft.Quantum.Canon.AssertIntEqual));
             this.MicrosoftQuantumCanonBitSize = this.Factory.Get<ICallable<Int64, Int64>>(typeof(Microsoft.Quantum.Canon.BitSize));
             this.Message = this.Factory.Get<ICallable<String, QVoid>>(typeof(Microsoft.Quantum.Primitive.Message));
-            this.Multiplier = this.Factory.Get<ICallable<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>), QVoid>>(typeof(HW3p1.Multiplier));
+            this.Multiplier = this.Factory.Get<IUnitary<(QArray<Qubit>,QArray<Qubit>,QArray<Qubit>)>>(typeof(HW3p1.Multiplier));
             this.UtilsQubitsToInt = this.Factory.Get<ICallable<QArray<Qubit>, Int64>>(typeof(Utils.QubitsToInt));
             this.Release = this.Factory.Get<Release>(typeof(Microsoft.Quantum.Primitive.Release));
             this.ResetAll = this.Factory.Get<ICallable<QArray<Qubit>, QVoid>>(typeof(Microsoft.Quantum.Primitive.ResetAll));
@@ -495,7 +548,7 @@ namespace HW3p1
         public override Func<Int64, QVoid> Body => (__in) =>
         {
             var binaryLength = __in;
-#line 106 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
+#line 102 "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/MIT2003QuantumComputation/HW3p1/OrderFinding.qs"
             UtilsRunOnAllTwoBinariesOfLength.Apply((binaryLength, ((ICallable)_TestMultiplierImpl)));
 #line hidden
             return QVoid.Instance;

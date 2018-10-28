@@ -72,6 +72,10 @@ namespace HW3p1 {
                 }
             }
         }
+
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
     }
 
     operation _TestMultiplierImpl(q1: Qubit[], q2: Qubit[]): () {
