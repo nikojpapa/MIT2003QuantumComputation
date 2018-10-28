@@ -71,10 +71,6 @@ namespace HW3p1 {
                     (Controlled QFTAdder)([multiplier[i]], (ancilla, multiplicand + leftShifts));
                 }
             }
-
-            // for (i in 0..Length(multiplicand) - 1) {
-            //     SWAP(multiplicand[i], ancilla[i]);
-            // }
         }
     }
 
@@ -86,10 +82,6 @@ namespace HW3p1 {
             let maxProductLength = BitSize(maxProduct);
 
             using (target = Qubit[maxProductLength]) {
-                // for (i in 0..Length(q1) - 1) {
-                //     CNOT(q1[i], target[i]);
-                // }
-
                 Multiplier(q1, q2, target);
 
                 let calcAns = QubitsToInt(target);
