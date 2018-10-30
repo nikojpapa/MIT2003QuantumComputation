@@ -17,8 +17,8 @@ namespace HW3p1
 
                 // _TestQFTAdder.Run(sim, 3).Wait(-1);
                 // _TestMultiplier.Run(sim, 3).Wait(-1);
-                // _TestSquareNumber.Run(sim, 3).Wait(-1);
-                _TestOrderFindingQuantumPow.Run(sim, 2).Wait(-1);
+                // _TestSquareNumber.Run(sim, 3, 7).Wait(-1);
+                _TestOrderFindingQuantumPow.Run(sim, 3, 7).Wait(-1);
                 // _TestOrderFindingU.Run(sim).Wait(-1);
             }
         }

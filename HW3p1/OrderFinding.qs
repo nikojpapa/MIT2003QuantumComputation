@@ -114,14 +114,14 @@ namespace HW3p1 {
         controlled auto;
         controlled adjoint auto;
     }
-    operation _TestSquareNumberImpl(q1: Qubit[]): () {
+    operation _TestSquareNumberImpl(q1: Qubit[], N: Int): () {
         body {
             let q1Val = QubitsToInt(q1);
             let answerLength = IntMax(BitSize(q1Val ^ 2), Length(q1));
             Message($"");
             Message($"{q1Val} ^ 2:");
 
-            using (target = Qubit[answerLength]) {
+            using (target = Qubit[BitSize(N)]) {
                 SquareNumber(q1, target);
 
                 let calcAns = QubitsToInt(target);
@@ -133,49 +133,34 @@ namespace HW3p1 {
             }
         }
     }
-    operation _TestSquareNumber(binaryLength: Int): () {
+    operation _TestSquareNumber(binaryLength: Int, N: Int): () {
         body {
-            RunOnAllBinariesOfLength(binaryLength, _TestSquareNumberImpl);
+            RunOnAllBinariesOfLength(binaryLength, _TestSquareNumberImpl(_, N));
         }
     }
 
     operation QuantumPow(powQ: Qubit[], baseQ: Qubit[], target: Qubit[], depth: Int, currentProduct: Qubit[]): () {  // U|k> = |x * k>
         body {
-            Message($"");
-            let mPowQ = QubitsToInt(powQ);
-            let mBaseQ = QubitsToInt(baseQ);
-            let cp1 = QubitsToInt(currentProduct);
             AssertAllZero(target);
             if (depth == Length(powQ)) {
                 CopyQubits(currentProduct, target);
             } else {
                 let targetLength = Length(target);
-                Message($"powQ: {mPowQ}");
-                Message($"baseQ: {mBaseQ}");
-                Message($"target length: {targetLength}");
-                Message($"depth: {depth}");
-                Message($"current product1: {cp1}");
                 using(ancillas = Qubit[targetLength * 2]) {
                     let ancillas1 = ancillas[0..targetLength - 1];
                     let ancillas2 = ancillas[targetLength..Length(ancillas) - 1];
 
                     let lengthAncillas1 = Length(ancillas1);
-                    Message($"length ancillas 1: {lengthAncillas1}");
-                    SquareNumber(baseQ, ancillas1);
-                    let squared = QubitsToInt(ancillas1);
-                    Message($"square: {squared}");
-                    let control = powQ[depth];
-                    let mC = M(control);
-                    Message($"control1: {mC}");
+                    if (depth == 0) {
+                        QFTAdder(ancillas1, baseQ);
+                    } else {
+                        SquareNumber(baseQ, ancillas1);
+                    }
+                    let control = powQ[Length(powQ) - 1 - depth];
                     (Controlled Multiplier)([control], (ancillas1, currentProduct, ancillas2));
                     X(control);
-                    let mC2 = M(control);
-                    Message($"control2: {mC2}");
                     (Controlled CopyQubits)([control], (currentProduct, ancillas2));
                     X(control);
-
-                    let currentP = QubitsToInt(ancillas2);
-                    Message($"current product2: {currentP}");
 
                     QuantumPow(powQ, ancillas1, target, depth + 1, ancillas2);
 
@@ -183,27 +168,26 @@ namespace HW3p1 {
                     (Controlled (Adjoint CopyQubits))([control], (currentProduct, ancillas2));
                     X(control);
                     (Adjoint (Controlled Multiplier))([control], (ancillas1, currentProduct, ancillas2));
-                    (Adjoint SquareNumber)(baseQ, ancillas1);
+                    if (depth == 0) {
+                        (Adjoint QFTAdder)(ancillas1, baseQ);
+                    } else {
+                        (Adjoint SquareNumber)(baseQ, ancillas1);
+                    }
                 }
             }
         }
 
-        // adjoint auto;
-        // controlled auto;
-        // controlled adjoint auto;
+        adjoint auto;
+        controlled auto;
+        controlled adjoint auto;
     }
 
-    operation _TestOrderFindingQuantumPowImpl(q1: Qubit[], q2: Qubit[]): () {
+    operation _TestOrderFindingQuantumPowImpl(q1: Qubit[], q2: Qubit[], N: Int): () {
         body {
             let q1Val = QubitsToInt(q1);
             let q2Val = QubitsToInt(q2);
-            let maxAnswer = (2 ^ Length(q1) - 1) ^ (2 ^ Length(q2) - 1);
-            let maxAnswerLength = BitSize(maxAnswer);
-            Message($"");
-            Message($"{q2Val} ^ {q1Val}:");
-            Message($"max answer: {maxAnswer}");
 
-            using (qubits = Qubit[maxAnswerLength + 1]) {
+            using (qubits = Qubit[BitSize(N) + 1]) {
                 let target = Most(qubits);
                 let startProduct = Tail(qubits);
                 X(startProduct);
@@ -211,16 +195,16 @@ namespace HW3p1 {
 
                 let calcAns = QubitsToInt(target);
                 let trueAns = q2Val ^ q1Val % 2 ^ Length(target);
-                // AssertIntEqual(calcAns, trueAns, $"{q2Val} ^ {q1Val} == {trueAns} != {calcAns}");
-                // Message($"{q2Val} ^ {q1Val} == {calcAns}");
+                AssertIntEqual(calcAns, trueAns, $"{q2Val} ^ {q1Val} == {trueAns} != {calcAns}");
+                Message($"{q2Val} ^ {q1Val} == {calcAns}");
 
                 ResetAll(qubits);
             }
         }
     }
-    operation _TestOrderFindingQuantumPow(binaryLength: Int): () {
+    operation _TestOrderFindingQuantumPow(binaryLength: Int, N: Int): () {
         body {
-            RunOnAllTwoBinariesOfLength(binaryLength, _TestOrderFindingQuantumPowImpl);
+            RunOnAllTwoBinariesOfLength(binaryLength, _TestOrderFindingQuantumPowImpl(_, _, N));
         }
     }
 
