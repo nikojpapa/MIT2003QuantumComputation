@@ -125,7 +125,7 @@ namespace HW3p1 {
         body {
             AssertAllZero(target);
             if (depth == Length(powQ)) {
-                CopyQubits(currentProduct, target);
+                QFTAdder(target, currentProduct);
             } else {
                 let targetLength = Length(target);
                 using(ancillas = Qubit[targetLength * 2]) {
@@ -138,7 +138,6 @@ namespace HW3p1 {
                     QuantumPow(powQ, ancillas1, target, depth + 1, ancillas2);
 
                     (Adjoint _QuantumPowImpl)(baseQ, ancillas1, ancillas2, control, currentProduct, depth);
-                    
                 }
             }
         }
