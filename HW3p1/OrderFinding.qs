@@ -101,42 +101,24 @@ namespace HW3p1 {
         }
     }
 
-    operation SquareNumber(num: Qubit[], target: Qubit[]): () {
+    operation _QuantumPowImpl(baseQ: Qubit[], ancillas1: Qubit[], ancillas2: Qubit[], control: Qubit, currentProduct: Qubit[], depth: Int): () {
         body {
-            using (ancillas = Qubit[Length(num)]) {
-                CopyQubits(num, ancillas);
-                Multiplier(ancillas, num, target);
-                (Adjoint CopyQubits)(num, ancillas);
+            if (depth == 0) {
+                QFTAdder(ancillas1, baseQ);
+            } else {
+                QFTAdder(ancillas2, baseQ);
+                Multiplier(ancillas2, baseQ, ancillas1);
+                (Adjoint QFTAdder)(ancillas2, baseQ);
             }
+            (Controlled Multiplier)([control], (ancillas1, currentProduct, ancillas2));
+            X(control);
+            (Controlled QFTAdder)([control], (ancillas2, currentProduct));
+            X(control);
         }
 
         adjoint auto;
         controlled auto;
         controlled adjoint auto;
-    }
-    operation _TestSquareNumberImpl(q1: Qubit[], N: Int): () {
-        body {
-            let q1Val = QubitsToInt(q1);
-            let answerLength = IntMax(BitSize(q1Val ^ 2), Length(q1));
-            Message($"");
-            Message($"{q1Val} ^ 2:");
-
-            using (target = Qubit[BitSize(N)]) {
-                SquareNumber(q1, target);
-
-                let calcAns = QubitsToInt(target);
-                let trueAns = q1Val ^ 2 % 2 ^ Length(target);
-                AssertIntEqual(calcAns, trueAns, $"{q1Val} ^ 2 == {trueAns} != {calcAns}");
-                Message($"{q1Val} ^ 2 == {calcAns}");
-
-                ResetAll(target);
-            }
-        }
-    }
-    operation _TestSquareNumber(binaryLength: Int, N: Int): () {
-        body {
-            RunOnAllBinariesOfLength(binaryLength, _TestSquareNumberImpl(_, N));
-        }
     }
 
     operation QuantumPow(powQ: Qubit[], baseQ: Qubit[], target: Qubit[], depth: Int, currentProduct: Qubit[]): () {  // U|k> = |x * k>
@@ -149,30 +131,14 @@ namespace HW3p1 {
                 using(ancillas = Qubit[targetLength * 2]) {
                     let ancillas1 = ancillas[0..targetLength - 1];
                     let ancillas2 = ancillas[targetLength..Length(ancillas) - 1];
-
-                    let lengthAncillas1 = Length(ancillas1);
-                    if (depth == 0) {
-                        QFTAdder(ancillas1, baseQ);
-                    } else {
-                        SquareNumber(baseQ, ancillas1);
-                    }
                     let control = powQ[Length(powQ) - 1 - depth];
-                    (Controlled Multiplier)([control], (ancillas1, currentProduct, ancillas2));
-                    X(control);
-                    (Controlled CopyQubits)([control], (currentProduct, ancillas2));
-                    X(control);
+
+                    _QuantumPowImpl(baseQ, ancillas1, ancillas2, control, currentProduct, depth);
 
                     QuantumPow(powQ, ancillas1, target, depth + 1, ancillas2);
 
-                    X(control);
-                    (Controlled (Adjoint CopyQubits))([control], (currentProduct, ancillas2));
-                    X(control);
-                    (Adjoint (Controlled Multiplier))([control], (ancillas1, currentProduct, ancillas2));
-                    if (depth == 0) {
-                        (Adjoint QFTAdder)(ancillas1, baseQ);
-                    } else {
-                        (Adjoint SquareNumber)(baseQ, ancillas1);
-                    }
+                    (Adjoint _QuantumPowImpl)(baseQ, ancillas1, ancillas2, control, currentProduct, depth);
+                    
                 }
             }
         }
