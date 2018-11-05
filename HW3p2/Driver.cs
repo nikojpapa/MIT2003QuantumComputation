@@ -13,10 +13,10 @@ namespace HW3p2
 
                 // // Problem 3
                 // Test.Run(sim).Wait();
-                // EntryProblem3.Run(sim).Wait();
+                EntryProblem3.Run(sim).Wait();
 
                 // Problem 4
-                Problem4Entry.Run(sim).Wait();
+                // Problem4Entry.Run(sim).Wait();
             }
 
         }

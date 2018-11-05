@@ -17,12 +17,14 @@ namespace HW3p2 {
     
     operation PrepareSuccess (binaryRep : Int[], qubits : Qubit[]) : Unit {
         
-        AssertIntEqual(Length(binaryRep), Length(qubits), "Binary representation and qubit register must have equal length");
-        
-        for (i in 0 .. Length(binaryRep) - 1) {
+        body (...) {
+            AssertIntEqual(Length(binaryRep), Length(qubits), "Binary representation and qubit register must have equal length");
             
-            if (binaryRep[i] == 0) {
-                X(qubits[i]);
+            for (i in 0 .. Length(binaryRep) - 1) {
+                
+                if (binaryRep[i] == 0) {
+                    X(qubits[i]);
+                }
             }
         }
     }
@@ -79,10 +81,13 @@ namespace HW3p2 {
         
         AssertIntEqual(Length(successBinary), Length(workQubits), "Success binary and work qubits must have equal length");
         AssertQubit(Zero, ancillaQubit);
+
         PrepareSuccess(successBinary, workQubits);
+
         X(ancillaQubit);
         H(ancillaQubit);
-        Controlled Z(workQubits, ancillaQubit);
+        Controlled X(workQubits, ancillaQubit);
+
         PrepareSuccess(successBinary, workQubits);
     }
     
