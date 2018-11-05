@@ -249,21 +249,6 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
-      },
-      "Utils/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v2.0",
-        "dependencies": {
-          "Microsoft.NETCore.App": "2.0.0",
-          "Microsoft.Quantum.Canon": "0.2.1806.3001-preview",
-          "Microsoft.Quantum.Development.Kit": "0.2.1806.3001-preview"
-        },
-        "compile": {
-          "bin/placeholder/Utils.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Utils.dll": {}
-        }
       }
     }
   },
@@ -795,19 +780,13 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
-    },
-    "Utils/1.0.0": {
-      "type": "project",
-      "path": "../../Utils/Utils.csproj",
-      "msbuildProject": "../../Utils/Utils.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.Quantum.Canon >= 0.2.1806.3001-preview",
-      "Microsoft.Quantum.Development.Kit >= 0.2.1806.3001-preview",
-      "Utils >= 1.0.0"
+      "Microsoft.Quantum.Development.Kit >= 0.2.1806.3001-preview"
     ]
   },
   "packageFolders": {
@@ -837,11 +816,7 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {
-            "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/Utils/Utils.csproj": {
-              "projectPath": "/Users/nicholaspapadopoulos/Box Sync/CS/Me/quantum/Utils/Utils.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

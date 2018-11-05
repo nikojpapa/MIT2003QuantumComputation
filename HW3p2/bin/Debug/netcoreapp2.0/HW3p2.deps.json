@@ -1,55 +1,55 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "b2041f01d46fad6ea7e52e23a99db3c8bef87277"
+    "signature": "e5d92f323dda8e8a18c1acb4c4c44b49a5925f0c"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "HW3p2/1.0.0": {
         "dependencies": {
-          "Microsoft.Quantum.Canon": "0.2.1806.3001-preview",
-          "Microsoft.Quantum.Development.Kit": "0.2.1806.3001-preview"
+          "Microsoft.Quantum.Canon": "0.3.1810.2508-preview",
+          "Microsoft.Quantum.Development.Kit": "0.3.1810.2508-preview"
         },
         "runtime": {
           "HW3p2.dll": {}
         }
       },
-      "Microsoft.Quantum.Canon/0.2.1806.3001-preview": {
+      "Microsoft.Quantum.Canon/0.3.1810.2508-preview": {
         "dependencies": {
-          "Microsoft.Quantum.Development.Kit": "0.2.1806.3001-preview"
+          "Microsoft.Quantum.Development.Kit": "0.3.1810.2508-preview"
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Quantum.Canon.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
+            "assemblyVersion": "0.3.1810.2508",
+            "fileVersion": "0.3.1810.2508"
           }
         }
       },
-      "Microsoft.Quantum.Development.Kit/0.2.1806.3001-preview": {
+      "Microsoft.Quantum.Development.Kit/0.3.1810.2508-preview": {
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Quantum.MetaData.dll": {
-            "assemblyVersion": "0.2.1806.3001",
+          "lib/netstandard2.0/Microsoft.Quantum.Primitives.dll": {
+            "assemblyVersion": "0.3.1810.2508",
             "fileVersion": "0.0.0.0"
           },
-          "lib/netstandard2.0/Microsoft.Quantum.Primitives.dll": {
-            "assemblyVersion": "0.2.1806.3001",
+          "lib/netstandard2.0/Microsoft.Quantum.QsCompilerCommon.dll": {
+            "assemblyVersion": "0.3.1810.2508",
             "fileVersion": "0.0.0.0"
           },
           "lib/netstandard2.0/Microsoft.Quantum.Simulation.Common.dll": {
-            "assemblyVersion": "0.2.1806.3001",
+            "assemblyVersion": "0.3.1810.2508",
             "fileVersion": "0.0.0.0"
           },
           "lib/netstandard2.0/Microsoft.Quantum.Simulation.Core.dll": {
-            "assemblyVersion": "0.2.1806.3001",
+            "assemblyVersion": "0.3.1810.2508",
             "fileVersion": "0.0.0.0"
           },
           "lib/netstandard2.0/Microsoft.Quantum.Simulation.QCTraceSimulatorRuntime.dll": {
-            "assemblyVersion": "0.2.1806.3001",
+            "assemblyVersion": "0.3.1810.2508",
             "fileVersion": "0.0.0.0"
           },
           "lib/netstandard2.0/Microsoft.Quantum.Simulation.Simulators.dll": {
-            "assemblyVersion": "0.2.1806.3001",
+            "assemblyVersion": "0.3.1810.2508",
             "fileVersion": "0.0.0.0"
           }
         },
@@ -84,19 +84,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Quantum.Canon/0.2.1806.3001-preview": {
+    "Microsoft.Quantum.Canon/0.3.1810.2508-preview": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wdMNTTN+k5a1BlrQUInzoUwmnKiWBESbXImKhmQEYXizd0FGadJlz/OZV+hAJu1V6jMgzrq9WfobX3c7w9NN0g==",
-      "path": "microsoft.quantum.canon/0.2.1806.3001-preview",
-      "hashPath": "microsoft.quantum.canon.0.2.1806.3001-preview.nupkg.sha512"
+      "sha512": "sha512-6Wgj62a+vVBBFeng0u2mZmVBLKpVjRJ74Vc+RZbXlJwf5lFpBFn957ivg0urKmKfNkthOHJcUbpjthL5oZK3AQ==",
+      "path": "microsoft.quantum.canon/0.3.1810.2508-preview",
+      "hashPath": "microsoft.quantum.canon.0.3.1810.2508-preview.nupkg.sha512"
     },
-    "Microsoft.Quantum.Development.Kit/0.2.1806.3001-preview": {
+    "Microsoft.Quantum.Development.Kit/0.3.1810.2508-preview": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-UJUR5Ji3QBUZRNLKLDWihKrM1vG4R5IWN85+pZec1rQhf/F9ZnfPO+q65VLjfHA6/FIucmCBFPOMwVwscfamtQ==",
-      "path": "microsoft.quantum.development.kit/0.2.1806.3001-preview",
-      "hashPath": "microsoft.quantum.development.kit.0.2.1806.3001-preview.nupkg.sha512"
+      "sha512": "sha512-1rTOns1SjndI+RXs//MjoVAe53UqrsIi6jA3ilhcV2VTqJSe9V0zP6V9wibvmLqzm8r3aaGK+p6mTHYqicL8+Q==",
+      "path": "microsoft.quantum.development.kit/0.3.1810.2508-preview",
+      "hashPath": "microsoft.quantum.development.kit.0.3.1810.2508-preview.nupkg.sha512"
     }
   }
 }
